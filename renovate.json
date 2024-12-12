@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "timezone": "America/New_York",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "extends": ["config:best-practices", ":rebaseStalePrs", ":preserveSemverRanges"],
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true
+}

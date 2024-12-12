@@ -1,0 +1,47 @@
+{
+  "name": "vite-plugin-bun-csp",
+  "version": "1.0.0",
+  "description": "A Vite plugin that generates and injects a Content Security Policy (CSP) for your SPA application.",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun && tsc",
+    "clean": "rm -rf dist sample/build sample/dist sample/node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maccuaa/vite-plugin-bun-csp.git"
+  },
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "csp",
+    "content-security-policy",
+    "bun",
+    "spa"
+  ],
+  "author": "Andrew MacCuaig <andrewmaccuaig@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maccuaa/vite-plugin-bun-csp/issues"
+  },
+  "homepage": "https://github.com/maccuaa/vite-plugin-bun-csp#readme",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vite": "^4.0.0 || ^5.0.0 || ^6.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/bun": "1.0.7",
+    "@types/bun": "^1.1.6",
+    "typescript": "^5.5.3",
+    "vite": "^6.0.0"
+  }
+}
