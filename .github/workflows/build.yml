@@ -19,7 +19,7 @@ jobs:
       - run: bunx playwright install --with-deps
       - run: bun run e2e
       - run: bunx publint
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
