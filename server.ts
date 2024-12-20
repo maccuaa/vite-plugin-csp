@@ -1,7 +1,7 @@
 import { join, resolve } from "node:path";
 import { exists } from "node:fs/promises";
 
-if (Bun.argv.length < 3) {
+if (Bun.argv.length < 4) {
   console.info("Usage: bun server.ts <base dir> <port>");
   process.exit(1);
 }

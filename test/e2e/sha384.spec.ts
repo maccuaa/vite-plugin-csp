@@ -1,10 +1,9 @@
 import { test } from "@playwright/test";
-import { verifyDate, verifyStyle, verifyTitle } from "./base.spec";
+import { verifyDate, verifyTitle } from "./base.spec";
 
 test("sha384", async ({ page }) => {
   await page.goto("/");
 
-  await verifyTitle({ page });
+  await verifyTitle({ page, checkStyle: true });
   await verifyDate({ page, checkStyle: true });
-  await verifyStyle({ page });
 });

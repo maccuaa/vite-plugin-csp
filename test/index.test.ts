@@ -1,38 +1,23 @@
 import { describe, expect, it, test } from "bun:test";
 import { generateCspPlugin } from "../src";
-import type { CspPluginConfiguration, HashAlgorithm } from "../src/types";
+import type { CspPluginConfiguration, CspPolicy, HashAlgorithm } from "../src/types";
 import { build } from "vite";
-import type { RollupOutput } from "rollup";
 import { resolve } from "node:path";
 import { ScriptHandler } from "../src/ScriptHandler";
 import { StyleHandler } from "../src/StyleHandler";
+import { addToPolicy } from "../src/utils";
 
 async function buildVite(entryPath: string, pluginConfig?: CspPluginConfiguration) {
   const projectRoot = resolve(__dirname, entryPath);
-  const entryFilename = "index.html";
+  const outFile = resolve(projectRoot, "dist", "index.html");
 
-  const outputs = (await build({
+  await build({
     root: projectRoot,
     logLevel: "error",
     plugins: [generateCspPlugin(pluginConfig)],
-  })) as RollupOutput | RollupOutput[];
-  const output = Array.isArray(outputs) ? outputs[0].output : outputs.output;
+  });
 
-  const file = output.find((item) => item.fileName === entryFilename);
-
-  if (!file) {
-    throw new Error(`File with name ${entryFilename} not found in output.`);
-  }
-
-  let codeStr = "";
-  if ("source" in file) {
-    codeStr = file.source.toString();
-  } else if ("code" in file) {
-    codeStr = file.code;
-  } else {
-    throw new Error("The file object lacks both `source` and `code` properties.");
-  }
-  return codeStr;
+  return await Bun.file(outFile).text();
 }
 
 describe("vite-plugin-bun-csp", () => {
@@ -74,11 +59,9 @@ describe("vite-plugin-bun-csp", () => {
 
   describe("edge-cases", () => {
     it("should skip elements that already have an integrity hash", () => {
-      const cache = new Map<string, string>();
-
       const rewriter = new HTMLRewriter();
-      const scriptHandler = new ScriptHandler("sha256", cache);
-      const styleHandler = new StyleHandler("sha256", cache);
+      const scriptHandler = new ScriptHandler("sha256", "dist");
+      const styleHandler = new StyleHandler("sha256", "dist");
 
       const html = `
         <html>
@@ -104,10 +87,8 @@ describe("vite-plugin-bun-csp", () => {
     });
 
     it("should skip link elements that are missing attributes", () => {
-      const cache = new Map<string, string>();
-
       const rewriter = new HTMLRewriter();
-      const styleHandler = new StyleHandler("sha256", cache);
+      const styleHandler = new StyleHandler("sha256", "dist");
 
       const html = `
         <html>
@@ -131,11 +112,9 @@ describe("vite-plugin-bun-csp", () => {
     });
 
     it("should not duplicate hash or url values", () => {
-      const cache = new Map<string, string>();
-
       const rewriter = new HTMLRewriter();
-      const scriptHandler = new ScriptHandler("sha384", cache);
-      const styleHandler = new StyleHandler("sha384", cache);
+      const scriptHandler = new ScriptHandler("sha384", "dist");
+      const styleHandler = new StyleHandler("sha384", "dist");
 
       const html = `
         <html>
@@ -162,30 +141,6 @@ describe("vite-plugin-bun-csp", () => {
       );
       expect(styleHandler.urls).toEqual("https://cdn.jsdelivr.net");
     });
-
-    it("should throw if the file contents are not found in the cache", () => {
-      const cache = new Map<string, string>();
-
-      const rewriter = new HTMLRewriter();
-      const scriptHandler = new ScriptHandler("sha256", cache);
-      const styleHandler = new StyleHandler("sha256", cache);
-
-      const html = `
-        <html>
-          <head>
-            <link href="style.css" rel="stylesheet" />
-            <script src="index.js></script>
-          </head>
-          <body>
-            <h1 id="app"></h1>
-          </body>
-        </html>
-      `;
-
-      const newHtml = rewriter.on("script", scriptHandler).on("link", styleHandler).transform(html);
-
-      expect(newHtml).toEqual(html);
-    });
   });
 
   describe("algorithms", () => {
@@ -206,6 +161,19 @@ describe("vite-plugin-bun-csp", () => {
         },
       });
       expect(output).toMatchSnapshot();
+    });
+
+    it("should not add duplicate directive values", () => {
+      const policy: CspPolicy = {};
+
+      addToPolicy(policy, "script-src", "'self'");
+      addToPolicy(policy, "script-src", "'self'");
+
+      expect(policy["script-src"]).toEqual(["'self'"]);
+
+      addToPolicy(policy, "script-src", "'self' sha256-123");
+
+      expect(policy["script-src"]).toEqual(["'self'", "sha256-123"]);
     });
   });
 });

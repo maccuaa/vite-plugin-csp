@@ -1,17 +1,18 @@
 import { type CryptoHasher } from "bun";
-import type { AssetCache, HashAlgorithm } from "./types";
+import type { HashAlgorithm } from "./types";
+import { join } from "node:path";
 
 export class BaseHandler {
   private algorithm: HashAlgorithm;
-  private cache: AssetCache;
+  private outDir: string;
 
   private hasher: CryptoHasher;
   private hashes: string[] = [];
 
-  constructor(algorithm: HashAlgorithm, cache: AssetCache) {
+  constructor(algorithm: HashAlgorithm, outDir: string) {
     this.algorithm = algorithm;
     this.hasher = new Bun.CryptoHasher(algorithm);
-    this.cache = cache;
+    this.outDir = outDir;
   }
 
   get hashValues() {
@@ -28,13 +29,15 @@ export class BaseHandler {
     return hash;
   };
 
-  protected getFileContents = async (filePath: string): Promise<string> => {
-    if (filePath.startsWith("https://")) {
-      const response = await fetch(filePath);
+  protected getFileContents = async (assetPath: string): Promise<string> => {
+    if (assetPath.startsWith("https://")) {
+      const response = await fetch(assetPath);
       return await response.text();
     }
 
-    const fileContents = this.cache.get(filePath);
+    const filepath = join(this.outDir, assetPath);
+
+    const fileContents = await Bun.file(filepath).text();
 
     if (!fileContents) {
       // https://github.com/oven-sh/bun/issues/15852

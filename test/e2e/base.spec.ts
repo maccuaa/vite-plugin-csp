@@ -1,9 +1,25 @@
 import { expect, type Page } from "@playwright/test";
 
-export const verifyTitle = async ({ page }: { page: Page }) => {
-  const element = page.getByText("Hello World");
+interface Props {
+  page: Page;
+}
+
+interface TitleProps {
+  page: Page;
+  title?: string;
+  checkStyle?: boolean;
+}
+
+export const verifyTitle = async ({ page, title = "Hello World", checkStyle = false }: TitleProps) => {
+  const element = page.getByText(title);
 
   await expect(element).toBeVisible();
+
+  if (checkStyle) {
+    const color = await element.evaluate((el) => window.getComputedStyle(el).color);
+
+    expect(color).toBe("rgb(128, 0, 128)");
+  }
 };
 
 export const verifyDate = async ({ page, checkStyle = false }: { page: Page; checkStyle?: boolean }) => {
@@ -21,7 +37,7 @@ export const verifyDate = async ({ page, checkStyle = false }: { page: Page; che
   }
 };
 
-export const verifyFont = async ({ page }: { page: Page }) => {
+export const verifyFont = async ({ page }: Props) => {
   const element = page.getByText("Hello World");
 
   await expect(element).toBeVisible();
@@ -29,14 +45,4 @@ export const verifyFont = async ({ page }: { page: Page }) => {
   const fontFamily = await element.evaluate((el) => window.getComputedStyle(el).fontFamily);
 
   expect(fontFamily).toBe("Tomorrow");
-};
-
-export const verifyStyle = async ({ page }: { page: Page }) => {
-  const element = page.getByText("Hello World");
-
-  await expect(element).toBeVisible();
-
-  const color = await element.evaluate((el) => window.getComputedStyle(el).color);
-
-  expect(color).toBe("rgb(128, 0, 128)");
 };
