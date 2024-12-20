@@ -2,17 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Tomorrow&display=swap" rel="stylesheet" />
-    <title>Vite App</title>
+
+    <!-- Remote CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tomorrow&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" />
+
+    <!-- Remote JS - 3rd-party-->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
+
+    <!-- Inline style -->
+    <style>
+      :root {
+        font-family: "Tomorrow", serif;
+        line-height: 1.5;
+        font-weight: 400;
+
+        color-scheme: light dark;
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #242424;
+
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+
+    <style>
+      button {
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding: 0.6em 1.2em;
+        font-size: 1em;
+        font-weight: 500;
+        font-family: inherit;
+        background-color: #1a1a1a;
+        cursor: pointer;
+        transition: border-color 0.25s;
+      }
+      button:hover {
+        border-color: #646cff;
+      }
+      button:focus,
+      button:focus-visible {
+        outline: 4px auto -webkit-focus-ring-color;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- Remote JS - local -->
     <script type="module" src="/src/main.js"></script>
+
+    <!-- Inline JS -->
     <script>
       function setupCounter(element) {
         let counter = 0;
@@ -23,6 +72,10 @@
         element.addEventListener("click", () => setCounter(counter + 1));
         setCounter(0);
       }
+    </script>
+
+    <script>
+      console.log("hello world");
     </script>
   </body>
 </html>

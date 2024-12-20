@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <h3 id="date"></h3>
+    <script>
+      document.querySelector("#date").innerHTML = dayjs().format("DD-MM-YYYY");
+    </script>
+  </body>
+</html>

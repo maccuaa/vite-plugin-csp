@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      #app {
+        color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1 id="app"></h1>
+      <h3 id="date"></h3>
+    </main>
+    <script type="module" src="./main.js"></script>
+    <script>
+      document.querySelector("#app").innerHTML = `Hello World`;
+    </script>
+  </body>
+</html>

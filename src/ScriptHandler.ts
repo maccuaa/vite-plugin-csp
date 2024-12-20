@@ -1,73 +1,47 @@
-import { type CryptoHasher } from "bun";
-import type { AssetCache, HashAlgorithm } from "./types";
+import { BaseHandler } from "./BaseHandler";
 
-export class ScriptHandler implements HTMLRewriterTypes.HTMLRewriterElementContentHandlers {
-  private algorithm: HashAlgorithm;
-  private cache: AssetCache;
+// You use the Subresource Integrity feature by
+// specifying a base64-encoded cryptographic hash
+// of a resource (file) you're telling the browser
+// to fetch, in the value of the integrity attribute
+// of a <script> element or a <link> element with
+//  rel="stylesheet", rel="preload", or rel="modulepreload".
 
-  private hasher: CryptoHasher;
-  private hashes: string[] = [];
+const srcAttribute = "src";
+const crossOriginAttribute = "crossorigin";
+const integrityAttribute = "integrity";
 
-  private textContent = "";
-  private currentElement?: HTMLRewriterTypes.Element;
+export class ScriptHandler extends BaseHandler implements HTMLRewriterTypes.HTMLRewriterElementContentHandlers {
+  async element(element: HTMLRewriterTypes.Element) {
+    const filePath = element.getAttribute(srcAttribute);
 
-  constructor(algorithm: HashAlgorithm, cache: AssetCache) {
-    this.algorithm = algorithm;
-    this.hasher = new Bun.CryptoHasher(algorithm);
-    this.cache = cache;
-  }
-
-  element(element: HTMLRewriterTypes.Element) {
-    const attributeName = "src";
-
-    if (!element.hasAttribute(attributeName)) {
-      // Processing an inline script. Wait for the text method to be invoked.
-      // 1. Save the element.
-      // 2. Reset the text content buffer
-      this.currentElement = element;
-      this.textContent = "";
-
+    // Check if we're processing an inline script.
+    // If yes, skip it.
+    if (!filePath) {
       return;
     }
 
-    const filePath = element.getAttribute(attributeName);
+    const existingHash = element.getAttribute(integrityAttribute);
 
-    if (!filePath) {
-      throw new Error(`${attributeName} attribute does not have a value`);
+    // If the element already has an integrity attribute then skip it
+    if (existingHash) {
+      this.saveHash(existingHash);
+      return;
     }
 
-    const contentsToHash = this.cache.get(filePath);
+    const contentsToHash = await this.getFileContents(filePath);
 
     if (!contentsToHash) {
-      throw new Error(`${filePath} not found in cache`);
+      return;
     }
 
-    this.calculateHash(contentsToHash);
-  }
+    const hash = this.calculateHash(contentsToHash);
 
-  text(chunk: HTMLRewriterTypes.Text): void | Promise<void> {
-    this.textContent += chunk.text;
+    element.setAttribute("integrity", hash);
 
-    if (chunk.lastInTextNode) {
-      this.calculateHash(this.textContent);
+    // Be nice and fix CORS issues too. Add crossorigin="anonymous"
+    if (filePath.startsWith("https://") && !element.hasAttribute(crossOriginAttribute)) {
+      element.setAttribute(crossOriginAttribute, "anonymous");
     }
   }
-
-  get hashValue() {
-    return this.hashes.map((h) => `'${h}'`).join(" ");
-  }
-
-  private calculateHash = (contentsToHash: string) => {
-    const hashed = this.hasher.update(contentsToHash).digest("base64");
-
-    const cspValue = `${this.algorithm}-${hashed}`;
-
-    this.hashes.push(cspValue);
-
-    if (!this.currentElement) {
-      throw new Error("calculateHash method called before element was set");
-    }
-
-    this.currentElement.setAttribute("integrity", cspValue);
-  };
 }

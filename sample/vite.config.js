@@ -1,16 +1,17 @@
 import { defineConfig } from "vite";
-import { generateCsp } from "vite-plugin-bun-csp";
+import { generateCspPlugin } from "vite-plugin-bun-csp";
 
 export default defineConfig({
   plugins: [
-    generateCsp({
-      algorithm: "sha384",
+    generateCspPlugin({
+      algorithm: "sha256",
       policy: {
-        // "default-src": ["'self'"],
-        "font-src": ["fonts.gstatic.com"],
-        "script-src": ["'self'", "'strict-dynamic'"],
+        "default-src": ["'self'"],
+        "object-src": ["'none'"],
+        "base-uri": ["'none'"],
+        "script-src": ["'strict-dynamic'"],
+
         "img-src": ["'self'", "data:"],
-        "style-src": ["'self'", "fonts.googleapis.com"],
         "upgrade-insecure-requests": [],
       },
     }),

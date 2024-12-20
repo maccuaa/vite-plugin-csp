@@ -1,18 +1,30 @@
-import { type IndexHtmlTransformContext, type Plugin } from "vite";
-import type { CSPPolicy, PluginConfiguration } from "./types";
+import type { IndexHtmlTransformContext, Plugin } from "vite";
+import type { CspPolicy, CspPluginConfiguration } from "./types";
 import { ScriptHandler } from "./ScriptHandler";
-import { MetaHandler } from "./MetaHandler";
+import { StyleHandler } from "./StyleHandler";
+import { InlineStyleHandler } from "./InlineStyleHandler";
+import { InlineScriptHandler } from "./InlineScriptHandler";
+import { buildCsp, createAssetCache } from "./utils";
 
-export const DEFAULT_CSP_POLICY: CSPPolicy = {
+/**
+ * Default CSP policy.
+ * @link https://web.dev/articles/strict-csp
+ */
+export const DEFAULT_CSP_POLICY: CspPolicy = {
+  "base-uri": ["'none'"],
   "default-src": ["'self'"],
-  "img-src": ["'self'", "data:"],
-  "script-src-elem": ["'self'"],
-  "style-src-elem": ["'self'"],
   "object-src": ["'none'"],
 };
 
-export const generateCsp = (options: PluginConfiguration = {}): Plugin => {
-  const { algorithm = "sha256", policy = DEFAULT_CSP_POLICY } = options;
+/**
+ *
+ * @param options
+ * @returns
+ */
+export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin => {
+  const { algorithm = "sha384" } = options;
+
+  const policy = options.policy ?? { ...DEFAULT_CSP_POLICY };
 
   return {
     name: "generate-csp",
@@ -20,41 +32,30 @@ export const generateCsp = (options: PluginConfiguration = {}): Plugin => {
     apply: "build",
 
     transformIndexHtml: (html: string, { bundle }: IndexHtmlTransformContext) => {
-      // 1. Interate through all files in the context bundle. Put all JS chunks in a cache
-      // 2. Parse the HTML. Get each script source from the cache and caclulate the hash
-      // 3. Add the hash to the script src
-      // 2. Add the CSP to the HTML
+      const assetCache = createAssetCache(bundle);
 
-      if (!policy) {
-        console.warn("No CSP policy defined. CSP Transformation not performed");
-        return html;
-      }
-
-      if (!bundle) {
-        console.warn("No bundle found. CSP Transformation not performed");
-        return html;
-      }
-
-      // map of asset name to asset code
-      const cache = new Map<string, string>();
-
-      const bundles = Object.entries(bundle);
-      for (const [name, bundle] of bundles) {
-        if (bundle.type === "chunk") {
-          // add a leading slash to the asset name
-          cache.set(`/${name}`, bundle.code);
-        }
-      }
-
-      const scriptHandler = new ScriptHandler(algorithm, cache);
-      const cspHandler = new MetaHandler(scriptHandler, policy);
       const rewriter = new HTMLRewriter();
+      const scriptHandler = new ScriptHandler(algorithm, assetCache);
+      const inlineScriptHandler = new InlineScriptHandler(algorithm, assetCache);
+      const styleHandler = new StyleHandler(algorithm, assetCache);
+      const inlineStyleHandler = new InlineStyleHandler(algorithm, assetCache);
 
-      // Transform the HTML
-      const newScriptHtml = rewriter.on("script", scriptHandler).transform(html);
-      const newHtml = rewriter.on("meta", cspHandler).transform(newScriptHtml);
+      const newHtml = rewriter
+        .on("script", scriptHandler)
+        .on("script", inlineScriptHandler)
+        .on("link", styleHandler)
+        .on("style", inlineStyleHandler)
+        .transform(html);
 
-      return newHtml;
+      const csp = buildCsp(policy, { scriptHandler, inlineScriptHandler, styleHandler, inlineStyleHandler });
+
+      const tag = `<meta http-equiv="Content-Security-Policy" content="${csp}" />`;
+
+      if (newHtml.includes("<head>")) {
+        return newHtml.replace(/<head>/, `<head>${tag}`);
+      } else {
+        return newHtml.replace(/(<html.*>)/, `$1<head>${tag}`);
+      }
     },
   };
 };

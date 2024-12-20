@@ -1,3 +1,9 @@
+import type { IndexHtmlTransformContext } from "vite";
+import type { ScriptHandler } from "./ScriptHandler";
+import type { InlineScriptHandler } from "./InlineScriptHandler";
+import type { InlineStyleHandler } from "./InlineStyleHandler";
+import type { StyleHandler } from "./StyleHandler";
+
 /**
  * The algorithm to use when hashing files for the CSP.
  * Browsers only support `sha256`, `sha384`, or `sha512`
@@ -206,9 +212,9 @@ interface OtherDirectives {
  *
  * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
  */
-export type CSPPolicy = Partial<FetchDirectives & DocumentDirectives & NavigationDirectives & OtherDirectives>;
+export type CspPolicy = Partial<FetchDirectives & DocumentDirectives & NavigationDirectives & OtherDirectives>;
 
-export interface PluginConfiguration {
+export interface CspPluginConfiguration {
   /**
    * What hashing algorithm to use. Default is sha-256.
    * @default "sha256"
@@ -219,7 +225,22 @@ export interface PluginConfiguration {
   /**
    * Your CSP policy. Learn more about CSP [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
    */
-  policy?: CSPPolicy;
+  policy?: CspPolicy;
 }
 
+//
+// Internal Types
+//
+
+type ValueOf<T> = T[keyof T];
+
+export type OutputBundle = ValueOf<Pick<IndexHtmlTransformContext, "bundle">>;
+
 export type AssetCache = Map<string, string>;
+
+export interface Handlers {
+  scriptHandler: ScriptHandler;
+  inlineScriptHandler: InlineScriptHandler;
+  styleHandler: StyleHandler;
+  inlineStyleHandler: InlineStyleHandler;
+}
