@@ -1,4 +1,3 @@
-import type { IndexHtmlTransformContext } from "vite";
 import type { ScriptHandler } from "./ScriptHandler";
 import type { InlineScriptHandler } from "./InlineScriptHandler";
 import type { InlineStyleHandler } from "./InlineStyleHandler";
@@ -232,15 +231,15 @@ export interface CspPluginConfiguration {
 // Internal Types
 //
 
-type ValueOf<T> = T[keyof T];
-
-export type OutputBundle = ValueOf<Pick<IndexHtmlTransformContext, "bundle">>;
-
-export type AssetCache = Map<string, string>;
-
 export interface Handlers {
   scriptHandler: ScriptHandler;
   inlineScriptHandler: InlineScriptHandler;
   styleHandler: StyleHandler;
   inlineStyleHandler: InlineStyleHandler;
+}
+
+export interface Config {
+  outDir: string;
+  base: string;
+  root: string;
 }

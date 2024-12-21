@@ -1,19 +1,20 @@
 import { describe, expect, it, test } from "bun:test";
 import { generateCspPlugin } from "../src";
-import type { CspPluginConfiguration, CspPolicy, HashAlgorithm } from "../src/types";
+import type { Config, CspPluginConfiguration, CspPolicy, HashAlgorithm } from "../src/types";
 import { build } from "vite";
 import { resolve } from "node:path";
 import { ScriptHandler } from "../src/ScriptHandler";
 import { StyleHandler } from "../src/StyleHandler";
 import { addToPolicy } from "../src/utils";
 
-async function buildVite(entryPath: string, pluginConfig?: CspPluginConfiguration) {
+async function buildVite(entryPath: string, pluginConfig?: CspPluginConfiguration, base?: string) {
   const projectRoot = resolve(__dirname, entryPath);
   const outFile = resolve(projectRoot, "dist", "index.html");
 
   await build({
     root: projectRoot,
     logLevel: "error",
+    base,
     plugins: [generateCspPlugin(pluginConfig)],
   });
 
@@ -59,9 +60,10 @@ describe("vite-plugin-bun-csp", () => {
 
   describe("edge-cases", () => {
     it("should skip elements that already have an integrity hash", () => {
+      const config: Config = { root: "", base: "", outDir: "" };
       const rewriter = new HTMLRewriter();
-      const scriptHandler = new ScriptHandler("sha256", "dist");
-      const styleHandler = new StyleHandler("sha256", "dist");
+      const scriptHandler = new ScriptHandler("sha256", config);
+      const styleHandler = new StyleHandler("sha256", config);
 
       const html = `
         <html>
@@ -87,8 +89,9 @@ describe("vite-plugin-bun-csp", () => {
     });
 
     it("should skip link elements that are missing attributes", () => {
+      const config: Config = { root: "", base: "", outDir: "" };
       const rewriter = new HTMLRewriter();
-      const styleHandler = new StyleHandler("sha256", "dist");
+      const styleHandler = new StyleHandler("sha256", config);
 
       const html = `
         <html>
@@ -112,9 +115,11 @@ describe("vite-plugin-bun-csp", () => {
     });
 
     it("should not duplicate hash or url values", () => {
+      const config: Config = { root: "", base: "", outDir: "" };
+
       const rewriter = new HTMLRewriter();
-      const scriptHandler = new ScriptHandler("sha384", "dist");
-      const styleHandler = new StyleHandler("sha384", "dist");
+      const scriptHandler = new ScriptHandler("sha384", config);
+      const styleHandler = new StyleHandler("sha384", config);
 
       const html = `
         <html>
@@ -140,6 +145,11 @@ describe("vite-plugin-bun-csp", () => {
         "'sha384-keU0jZorLpCR/4h2i+vCgG3TUPKXXt1zOsXoIcwy0uRJKOBQ26zPqJpJj6hPdgpa'"
       );
       expect(styleHandler.urls).toEqual("https://cdn.jsdelivr.net");
+    });
+
+    it("should handle base path", async () => {
+      const output = await buildVite("./fixtures/base-path", undefined, "base_path");
+      expect(output).toMatchSnapshot();
     });
   });
 

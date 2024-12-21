@@ -1,18 +1,18 @@
 import { type CryptoHasher } from "bun";
-import type { HashAlgorithm } from "./types";
-import { join } from "node:path";
+import type { Config, HashAlgorithm } from "./types";
+import { resolvePath } from "./utils";
 
 export class BaseHandler {
   private algorithm: HashAlgorithm;
-  private outDir: string;
+  private config: Config;
 
   private hasher: CryptoHasher;
   private hashes: string[] = [];
 
-  constructor(algorithm: HashAlgorithm, outDir: string) {
+  constructor(algorithm: HashAlgorithm, config: Config) {
     this.algorithm = algorithm;
     this.hasher = new Bun.CryptoHasher(algorithm);
-    this.outDir = outDir;
+    this.config = config;
   }
 
   get hashValues() {
@@ -35,7 +35,7 @@ export class BaseHandler {
       return await response.text();
     }
 
-    const filepath = join(this.outDir, assetPath);
+    const filepath = resolvePath(assetPath, this.config);
 
     const fileContents = await Bun.file(filepath).text();
 

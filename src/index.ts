@@ -1,11 +1,10 @@
 import type { Plugin } from "vite";
-import type { CspPolicy, CspPluginConfiguration } from "./types";
+import type { CspPolicy, CspPluginConfiguration, Config } from "./types";
 import { ScriptHandler } from "./ScriptHandler";
 import { StyleHandler } from "./StyleHandler";
 import { InlineStyleHandler } from "./InlineStyleHandler";
 import { InlineScriptHandler } from "./InlineScriptHandler";
-import { buildCsp } from "./utils";
-import { join, resolve } from "node:path";
+import { buildCsp, resolvePath } from "./utils";
 
 /**
  * Default CSP policy.
@@ -26,22 +25,25 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin 
   const { algorithm = "sha384" } = options;
 
   const startingPolicy = options.policy ?? { ...DEFAULT_CSP_POLICY };
-
-  let outDir = "";
+  let config: Config;
 
   return {
     name: "generate-csp",
     enforce: "post",
     apply: "build",
-    configResolved: (config) => {
-      outDir = join(config.root, config.build.outDir);
+    configResolved: ({ root, base, build: { outDir } }) => {
+      config = {
+        base,
+        outDir,
+        root,
+      };
     },
     closeBundle: {
       order: "post",
       handler: async () => {
         const policy = { ...startingPolicy };
 
-        const htmlPath = resolve(outDir, "index.html");
+        const htmlPath = resolvePath("index.html", config);
 
         const htmlFile = Bun.file(htmlPath);
 
@@ -53,10 +55,10 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin 
         const html = await htmlFile.text();
 
         const rewriter = new HTMLRewriter();
-        const scriptHandler = new ScriptHandler(algorithm, outDir);
-        const inlineScriptHandler = new InlineScriptHandler(algorithm, outDir);
-        const styleHandler = new StyleHandler(algorithm, outDir);
-        const inlineStyleHandler = new InlineStyleHandler(algorithm, outDir);
+        const scriptHandler = new ScriptHandler(algorithm, config);
+        const inlineScriptHandler = new InlineScriptHandler(algorithm, config);
+        const styleHandler = new StyleHandler(algorithm, config);
+        const inlineStyleHandler = new InlineStyleHandler(algorithm, config);
 
         const newHtml = rewriter
           .on("script", scriptHandler)

@@ -7,6 +7,7 @@ TODO:
 - README docs
 - Node.js version (not Bun)
 - Biome or Oxc
+- Dont emit internal types in published package
 
 #### Links
 

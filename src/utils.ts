@@ -1,4 +1,5 @@
-import type { CspPolicy, Handlers } from "./types";
+import type { Config, CspPolicy, Handlers } from "./types";
+import { join } from "node:path";
 
 const GOOGLE_FONTS_URL = "fonts.gstatic.com";
 
@@ -47,4 +48,8 @@ export const addToPolicy = (policy: CspPolicy, directive: keyof CspPolicy, hashV
       }
     }
   }
+};
+
+export const resolvePath = (filepath: string, { base, outDir, root }: Config) => {
+  return join(root, outDir, filepath.replace(base, ""));
 };
