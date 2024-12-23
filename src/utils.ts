@@ -7,8 +7,8 @@ export const buildCsp = (policy: CspPolicy, handlers: Handlers): string => {
   const { inlineScriptHandler, inlineStyleHandler, scriptHandler, styleHandler } = handlers;
 
   // Add SRI hashes to the CSP
-  addToPolicy(policy, "script-src-elem", scriptHandler.hashValues);
-  addToPolicy(policy, "script-src-elem", inlineScriptHandler.hashValues);
+  addToPolicy(policy, "script-src", scriptHandler.hashValues);
+  addToPolicy(policy, "script-src", inlineScriptHandler.hashValues);
   addToPolicy(policy, "style-src", inlineStyleHandler.hashValues);
 
   if (scriptHandler.hashValues || inlineScriptHandler.hashValues) {

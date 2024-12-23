@@ -2,7 +2,7 @@
 
 exports[`vite-plugin-bun-csp scripts it should handle inline scripts 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha384-38HOgRVS9paAKT7chxOOnubobWZ3kJfici4Bp1PHnTX8gK1inuKN/7g2KVNbcmuY'; script-src 'strict-dynamic'; style-src 'self'" /> </head>
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-38HOgRVS9paAKT7chxOOnubobWZ3kJfici4Bp1PHnTX8gK1inuKN/7g2KVNbcmuY' 'strict-dynamic'; style-src 'self'" /> </head>
   <body>
     <h1 id="app"></h1>
     <script>
@@ -15,7 +15,7 @@ exports[`vite-plugin-bun-csp scripts it should handle inline scripts 1`] = `
 
 exports[`vite-plugin-bun-csp scripts it should handle local scripts 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'; script-src 'strict-dynamic'" />   <script type="module" crossorigin src="/assets/index-DXh1w3r_.js" integrity="sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh"></script>
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh' 'strict-dynamic'" />   <script type="module" crossorigin src="/assets/index-DXh1w3r_.js" integrity="sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh"></script>
  </head>
   <body>
     <h1 id="app"></h1>
@@ -26,7 +26,7 @@ exports[`vite-plugin-bun-csp scripts it should handle local scripts 1`] = `
 
 exports[`vite-plugin-bun-csp scripts it should handle external scripts 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky' 'sha384-kgS1YDRuhk0bciElGkbKuHKqpmzV1kVKPcsiQlZ2/UrCfdNkc0GFx6OFgu5CKekd'; script-src 'strict-dynamic'; style-src 'self'" />
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky' 'sha384-kgS1YDRuhk0bciElGkbKuHKqpmzV1kVKPcsiQlZ2/UrCfdNkc0GFx6OFgu5CKekd' 'strict-dynamic'; style-src 'self'" />
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js" integrity="sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -129,9 +129,23 @@ exports[`vite-plugin-bun-csp edge-cases should not duplicate hash or url values 
       "
 `;
 
+exports[`vite-plugin-bun-csp edge-cases should handle base path 1`] = `
+"<html>
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh' 'strict-dynamic'" />
+    <link rel="stylesheet" href="data:text/javascript;base64,ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpLmlubmVySFRNTCA9IGBIZWxsbyBXb3JsZGA7Cg==" />
+    <script type="module" crossorigin src="/base_path/assets/index-B5JyzF1Q.js" integrity="sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh"></script>
+    <link rel="stylesheet" crossorigin href="/base_path/assets/index-C2gwoIh0.css" integrity="sha384-+GQFlkwjCJ/fme0HFYXUv0Yr8tEHvRgn4zPAlUhe8y77EapbmeY3ykbIfED0mVMZ">
+  </head>
+  <body>
+    <h1 id="app"></h1>
+  </body>
+</html>
+"
+`;
+
 exports[`vite-plugin-bun-csp algorithms should support the sha256 algorithm 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=' 'sha256-LL1trj6s1DR6qNh4ukIlQj/8NFdHwDQaUeIu87TwMHY=' 'sha256-QuP42mDRshb0EzsB1V3VXyvcvRbVgbx4ir8D/7BFgw0='; style-src 'sha256-LtGmiPOYFkJYXPu3Xt2sSbdUbKJ3U/7Cp0uFAlTEmrU=' https://cdn.jsdelivr.net 'self'; script-src 'strict-dynamic'" />
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=' 'sha256-LL1trj6s1DR6qNh4ukIlQj/8NFdHwDQaUeIu87TwMHY=' 'sha256-QuP42mDRshb0EzsB1V3VXyvcvRbVgbx4ir8D/7BFgw0=' 'strict-dynamic'; style-src 'sha256-LtGmiPOYFkJYXPu3Xt2sSbdUbKJ3U/7Cp0uFAlTEmrU=' https://cdn.jsdelivr.net 'self'" />
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js" integrity="sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" integrity="sha256-3V/VWRr9ge4h3MEXrYXAFNw/HxncLXt9EB6grMKSdMI=" crossorigin="anonymous" />
     <style>
@@ -157,7 +171,7 @@ exports[`vite-plugin-bun-csp algorithms should support the sha256 algorithm 1`] 
 
 exports[`vite-plugin-bun-csp algorithms should support the sha384 algorithm 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky' 'sha384-eq2PlAE9Ci0XUAfs71G6Jn4YdOiGl6dhZYvSq5r8okC0tTsxa0kqvpKkyFaDT+kX' 'sha384-38HOgRVS9paAKT7chxOOnubobWZ3kJfici4Bp1PHnTX8gK1inuKN/7g2KVNbcmuY'; style-src 'sha384-2IH9S6CFnaEWZJOjFu078HQpjmJLXFirDvUII2HOVzcVuoXg8rpY+1vtY29CsbPC' https://cdn.jsdelivr.net 'self'; script-src 'strict-dynamic'" />
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky' 'sha384-eq2PlAE9Ci0XUAfs71G6Jn4YdOiGl6dhZYvSq5r8okC0tTsxa0kqvpKkyFaDT+kX' 'sha384-38HOgRVS9paAKT7chxOOnubobWZ3kJfici4Bp1PHnTX8gK1inuKN/7g2KVNbcmuY' 'strict-dynamic'; style-src 'sha384-2IH9S6CFnaEWZJOjFu078HQpjmJLXFirDvUII2HOVzcVuoXg8rpY+1vtY29CsbPC' https://cdn.jsdelivr.net 'self'" />
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js" integrity="sha384-DpVxUeeBWjUvUV1czyIHJAjh+jYUZFu2lLakbdua5vbwOrBGi1UgaKCHjTC+x3Ky" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" integrity="sha384-7P0NVe9LPDbUCAF+fH2R8Egwz1uqNH83Ns/bfJY0fN2XCDBMUI2S9gGzIOIRBKsA" crossorigin="anonymous" />
     <style>
@@ -183,7 +197,7 @@ exports[`vite-plugin-bun-csp algorithms should support the sha384 algorithm 1`] 
 
 exports[`vite-plugin-bun-csp algorithms should support the sha512 algorithm 1`] = `
 "<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==' 'sha512-n4EoMAP6D7cUYgwfeok3doRXYciju7iuVsvWTL47MUrkr/KYYeTziYpaF196m8ZbIAgzQigkqO4/gRSEs25IqA==' 'sha512-YWgALCmz5eSTVsPOi0xlUmW7XVImjghbsKn0sUTm+RAr7sQfeF4GVRm/SJ+l99sQoluJIM9F+IfG60ufRg3P2w=='; style-src 'sha512-ke/umhQiERl6gm3X5tJlOs/zyCG3VpCXmnMLt24pfv9/Sx3CTcxpHC7BRzBmgD7mE8uR6WVj1TKZvjrYcK0fMw==' https://cdn.jsdelivr.net 'self'; script-src 'strict-dynamic'" />
+  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==' 'sha512-n4EoMAP6D7cUYgwfeok3doRXYciju7iuVsvWTL47MUrkr/KYYeTziYpaF196m8ZbIAgzQigkqO4/gRSEs25IqA==' 'sha512-YWgALCmz5eSTVsPOi0xlUmW7XVImjghbsKn0sUTm+RAr7sQfeF4GVRm/SJ+l99sQoluJIM9F+IfG60ufRg3P2w==' 'strict-dynamic'; style-src 'sha512-ke/umhQiERl6gm3X5tJlOs/zyCG3VpCXmnMLt24pfv9/Sx3CTcxpHC7BRzBmgD7mE8uR6WVj1TKZvjrYcK0fMw==' https://cdn.jsdelivr.net 'self'" />
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js" integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" integrity="sha512-UXfikgakSZBii5lkvmDCRO+IYWQhTtwMOJ+3EmGEA+oA82kvbSskgw3OI16Jx1kINgF8aqOkYE+c9h4m6muONg==" crossorigin="anonymous" />
     <style>
@@ -230,20 +244,6 @@ exports[`vite-plugin-bun-csp should add a default CSP tag to the html 1`] = `
 "<html><head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'" />
   <body>
     <h1>Hello World</h1>
-  </body>
-</html>
-"
-`;
-
-exports[`vite-plugin-bun-csp edge-cases should handle base path 1`] = `
-"<html>
-  <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src-elem 'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'; script-src 'strict-dynamic'" />
-    <link rel="stylesheet" href="data:text/javascript;base64,ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpLmlubmVySFRNTCA9IGBIZWxsbyBXb3JsZGA7Cg==" />
-    <script type="module" crossorigin src="/base_path/assets/index-B5JyzF1Q.js" integrity="sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh"></script>
-    <link rel="stylesheet" crossorigin href="/base_path/assets/index-C2gwoIh0.css" integrity="sha384-+GQFlkwjCJ/fme0HFYXUv0Yr8tEHvRgn4zPAlUhe8y77EapbmeY3ykbIfED0mVMZ">
-  </head>
-  <body>
-    <h1 id="app"></h1>
   </body>
 </html>
 "
