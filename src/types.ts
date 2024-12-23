@@ -1,6 +1,6 @@
-import type { ScriptHandler } from "./ScriptHandler";
 import type { InlineScriptHandler } from "./InlineScriptHandler";
 import type { InlineStyleHandler } from "./InlineStyleHandler";
+import type { ScriptHandler } from "./ScriptHandler";
 import type { StyleHandler } from "./StyleHandler";
 
 /**

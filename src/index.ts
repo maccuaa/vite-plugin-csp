@@ -1,9 +1,9 @@
 import type { Plugin } from "vite";
-import type { CspPolicy, CspPluginConfiguration, Config } from "./types";
+import { InlineScriptHandler } from "./InlineScriptHandler";
+import { InlineStyleHandler } from "./InlineStyleHandler";
 import { ScriptHandler } from "./ScriptHandler";
 import { StyleHandler } from "./StyleHandler";
-import { InlineStyleHandler } from "./InlineStyleHandler";
-import { InlineScriptHandler } from "./InlineScriptHandler";
+import type { Config, CspPluginConfiguration, CspPolicy } from "./types";
 import { buildCsp, resolvePath } from "./utils";
 
 /**

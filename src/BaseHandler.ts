@@ -1,4 +1,4 @@
-import { type CryptoHasher } from "bun";
+import type { CryptoHasher } from "bun";
 import type { Config, HashAlgorithm } from "./types";
 import { resolvePath } from "./utils";
 

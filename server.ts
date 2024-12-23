@@ -1,5 +1,5 @@
-import { join, resolve } from "node:path";
 import { exists } from "node:fs/promises";
+import { join, resolve } from "node:path";
 
 if (Bun.argv.length < 4) {
   console.info("Usage: bun server.ts <base dir> <port>");
@@ -10,7 +10,7 @@ const baseDir = resolve(Bun.argv[2]);
 const rawPort = Bun.argv[3];
 const port = Number.parseInt(rawPort);
 
-if (isNaN(port)) {
+if (Number.isNaN(port)) {
   console.info("Invalid port", rawPort);
   process.exit(1);
 }

@@ -1,10 +1,10 @@
 import { describe, expect, it, test } from "bun:test";
-import { generateCspPlugin } from "../src";
-import type { Config, CspPluginConfiguration, CspPolicy, HashAlgorithm } from "../src/types";
-import { build } from "vite";
 import { resolve } from "node:path";
+import { build } from "vite";
+import { generateCspPlugin } from "../src";
 import { ScriptHandler } from "../src/ScriptHandler";
 import { StyleHandler } from "../src/StyleHandler";
+import type { Config, CspPluginConfiguration, CspPolicy, HashAlgorithm } from "../src/types";
 import { addToPolicy } from "../src/utils";
 
 async function buildVite(entryPath: string, pluginConfig?: CspPluginConfiguration, base?: string) {
@@ -81,10 +81,10 @@ describe("vite-plugin-bun-csp", () => {
 
       expect(newHtml).toMatchSnapshot();
       expect(scriptHandler.hashValues).toEqual(
-        "'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'"
+        "'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'",
       );
       expect(styleHandler.hashValues).toEqual(
-        "'sha384-keU0jZorLpCR/4h2i+vCgG3TUPKXXt1zOsXoIcwy0uRJKOBQ26zPqJpJj6hPdgpa'"
+        "'sha384-keU0jZorLpCR/4h2i+vCgG3TUPKXXt1zOsXoIcwy0uRJKOBQ26zPqJpJj6hPdgpa'",
       );
     });
 
@@ -139,10 +139,10 @@ describe("vite-plugin-bun-csp", () => {
 
       expect(newHtml).toMatchSnapshot();
       expect(scriptHandler.hashValues).toEqual(
-        "'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'"
+        "'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh'",
       );
       expect(styleHandler.hashValues).toEqual(
-        "'sha384-keU0jZorLpCR/4h2i+vCgG3TUPKXXt1zOsXoIcwy0uRJKOBQ26zPqJpJj6hPdgpa'"
+        "'sha384-keU0jZorLpCR/4h2i+vCgG3TUPKXXt1zOsXoIcwy0uRJKOBQ26zPqJpJj6hPdgpa'",
       );
       expect(styleHandler.urls).toEqual("https://cdn.jsdelivr.net");
     });

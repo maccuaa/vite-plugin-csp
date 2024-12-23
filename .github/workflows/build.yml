@@ -15,6 +15,7 @@ jobs:
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
       - run: bun i --frozen-lockfile
       - run: bun run build
+      - run: bun run lint
       - run: bun run test
       - run: bunx playwright install --with-deps
       - run: bun run e2e

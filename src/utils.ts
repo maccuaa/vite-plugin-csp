@@ -1,5 +1,5 @@
-import type { Config, CspPolicy, Handlers } from "./types";
 import { join } from "node:path";
+import type { Config, CspPolicy, Handlers } from "./types";
 
 const GOOGLE_FONTS_URL = "fonts.gstatic.com";
 

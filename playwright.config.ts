@@ -1,5 +1,5 @@
-import { defineConfig, devices } from "@playwright/test";
 import { readdir } from "node:fs/promises";
+import { defineConfig, devices } from "@playwright/test";
 
 let port = 3000;
 
