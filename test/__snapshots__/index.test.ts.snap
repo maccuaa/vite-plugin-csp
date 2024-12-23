@@ -132,7 +132,7 @@ exports[`vite-plugin-bun-csp edge-cases should not duplicate hash or url values 
 exports[`vite-plugin-bun-csp edge-cases should handle base path 1`] = `
 "<html>
   <head><meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'self'; object-src 'none'; script-src 'sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh' 'strict-dynamic'" />
-    <link rel="stylesheet" href="data:text/javascript;base64,ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpLmlubmVySFRNTCA9IGBIZWxsbyBXb3JsZGA7Cg==" />
+    <link rel="stylesheet" href="data:text/javascript;base64,ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2FwcCIpLmlubmVySFRNTCA9ICJIZWxsbyBXb3JsZCI7Cg==" />
     <script type="module" crossorigin src="/base_path/assets/index-B5JyzF1Q.js" integrity="sha384-vTb4ka/HRdvMTCK99IHf4grsm4H7ngk8QotM6VmrozV6fFTs6kVHItFSLXWTgnAh"></script>
     <link rel="stylesheet" crossorigin href="/base_path/assets/index-C2gwoIh0.css" integrity="sha384-+GQFlkwjCJ/fme0HFYXUv0Yr8tEHvRgn4zPAlUhe8y77EapbmeY3ykbIfED0mVMZ">
   </head>
