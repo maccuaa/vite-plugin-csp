@@ -7,6 +7,7 @@ TODO:
 - README docs
 - Node.js version (not Bun)
 - Dont emit internal types in published package
+  - Tried https://github.com/ryoppippi/bun-plugin-isolated-decl but it generated an invalid types.d.dts file. Try again in the future.
 
 #### Links
 
