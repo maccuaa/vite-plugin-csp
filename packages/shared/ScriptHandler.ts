@@ -1,4 +1,5 @@
-import { BaseHandler } from "./BaseHandler";
+import { BaseHandler } from "./BaseHandler.js";
+import type { MyHTMLRewriterTypes } from "./internal.js";
 
 // You use the Subresource Integrity feature by
 // specifying a base64-encoded cryptographic hash
@@ -11,8 +12,8 @@ const srcAttribute = "src";
 const crossOriginAttribute = "crossorigin";
 const integrityAttribute = "integrity";
 
-export class ScriptHandler extends BaseHandler implements HTMLRewriterTypes.HTMLRewriterElementContentHandlers {
-  async element(element: HTMLRewriterTypes.Element) {
+export class ScriptHandler extends BaseHandler implements MyHTMLRewriterTypes.HTMLRewriterElementContentHandlers {
+  async element(element: MyHTMLRewriterTypes.Element) {
     const filePath = element.getAttribute(srcAttribute);
 
     // Check if we're processing an inline script.

@@ -20,6 +20,9 @@ jobs:
 
       - run: bun i --frozen-lockfile
       - run: bun run build
-      - run: npm publish --provenance --access public
+      - run: npm publish --provenance --access public ./packages/bun
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish --provenance --access public ./packages/node
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

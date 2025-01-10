@@ -1,4 +1,5 @@
-import { BaseHandler } from "./BaseHandler";
+import { BaseHandler } from "./BaseHandler.js";
+import type { MyHTMLRewriterTypes } from "./internal.js";
 
 // You use the Subresource Integrity feature by
 // specifying a base64-encoded cryptographic hash
@@ -12,11 +13,11 @@ const crossOriginAttribute = "crossorigin";
 const integrityAttribute = "integrity";
 const relAttribute = "rel";
 
-export class StyleHandler extends BaseHandler implements HTMLRewriterTypes.HTMLRewriterElementContentHandlers {
+export class StyleHandler extends BaseHandler implements MyHTMLRewriterTypes.HTMLRewriterElementContentHandlers {
   // URLs to add to the CSP
   private urlCache: string[] = [];
 
-  async element(element: HTMLRewriterTypes.Element) {
+  async element(element: MyHTMLRewriterTypes.Element) {
     const rel = element.getAttribute(relAttribute);
 
     // SRI is only applicable on link elements with the following rel values

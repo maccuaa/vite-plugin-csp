@@ -13,13 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+        with:
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
       - run: bun i --frozen-lockfile
       - run: bun run build
       - run: bun run lint
+      - run: bun run build_fixtures
       - run: bun run test
-      - run: bunx playwright install --with-deps
+      - run: bunx playwright install --with-deps chromium
       - run: bun run e2e
-      - run: bunx publint
+      - run: bun run publint
+      - run: bun run typelint
       - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4
         if: ${{ !cancelled() }}
         with:

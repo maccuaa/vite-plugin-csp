@@ -1,18 +1,28 @@
-import type { CryptoHasher } from "bun";
-import type { Config, HashAlgorithm } from "./types";
-import { resolvePath } from "./utils";
+import type { CspFileContructor } from "./CspFile.js";
+import type { Hasher, HasherContructor } from "./Hasher.js";
+import type { Config } from "./internal.js";
+import type { HashAlgorithm } from "./types.js";
+import { resolvePath } from "./utils.js";
 
 export class BaseHandler {
   private algorithm: HashAlgorithm;
   private config: Config;
 
-  private hasher: CryptoHasher;
+  private FileType: CspFileContructor;
+
+  private hasher: Hasher;
   private hashes: string[] = [];
 
-  constructor(algorithm: HashAlgorithm, config: Config) {
+  constructor(
+    algorithm: HashAlgorithm,
+    config: Config,
+    HasherContructor: HasherContructor,
+    FileType: CspFileContructor,
+  ) {
     this.algorithm = algorithm;
-    this.hasher = new Bun.CryptoHasher(algorithm);
+    this.hasher = new HasherContructor(algorithm);
     this.config = config;
+    this.FileType = FileType;
   }
 
   get hashValues() {
@@ -20,7 +30,8 @@ export class BaseHandler {
   }
 
   protected calculateHash = (contentsToHash: string) => {
-    const hashed = this.hasher.update(contentsToHash).digest("base64");
+    this.hasher.update(contentsToHash);
+    const hashed = this.hasher.digest();
 
     const hash = `${this.algorithm}-${hashed}`;
 
@@ -37,7 +48,9 @@ export class BaseHandler {
 
     const filepath = resolvePath(assetPath, this.config);
 
-    const fileContents = await Bun.file(filepath).text();
+    const file = new this.FileType(filepath);
+
+    const fileContents = await file.read();
 
     if (!fileContents) {
       // https://github.com/oven-sh/bun/issues/15852

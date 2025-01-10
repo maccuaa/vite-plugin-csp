@@ -1,0 +1,18 @@
+{
+  "name": "shared",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "exports": {
+    "./BaseHandler": "./BaseHandler.ts",
+    "./CspFile": "./CspFile.ts",
+    "./Hasher": "./Hasher.ts",
+    "./InlineScriptHandler": "./InlineScriptHandler.ts",
+    "./InlineStyleHandler": "./InlineStyleHandler.ts",
+    "./internal": "./internal.d.ts",
+    "./ScriptHandler": "./ScriptHandler.ts",
+    "./StyleHandler": "./StyleHandler.ts",
+    "./types": "./types.d.ts",
+    "./utils": "./utils.ts"
+  }
+}

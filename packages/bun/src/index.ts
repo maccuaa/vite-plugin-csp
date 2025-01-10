@@ -1,10 +1,13 @@
-import type { Plugin } from "vite";
-import { InlineScriptHandler } from "./InlineScriptHandler";
-import { InlineStyleHandler } from "./InlineStyleHandler";
-import { ScriptHandler } from "./ScriptHandler";
-import { StyleHandler } from "./StyleHandler";
-import type { Config, CspPluginConfiguration, CspPolicy } from "./types";
-import { buildCsp, resolvePath } from "./utils";
+import { InlineScriptHandler } from "shared/InlineScriptHandler";
+import { InlineStyleHandler } from "shared/InlineStyleHandler";
+import { ScriptHandler } from "shared/ScriptHandler";
+import { StyleHandler } from "shared/StyleHandler";
+import type { Config } from "shared/internal";
+import type { CspPluginConfiguration, CspPolicy, generateCspPlugin as GenerateCspPlugin } from "shared/types";
+import { buildCsp, resolvePath } from "shared/utils";
+import type { PluginOption } from "vite";
+import { BunFile } from "./BunFile";
+import { BunHash } from "./BunHash";
 
 /**
  * Default CSP policy.
@@ -21,7 +24,7 @@ export const DEFAULT_CSP_POLICY: CspPolicy = {
  * @param options
  * @returns
  */
-export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin => {
+export const generateCspPlugin: typeof GenerateCspPlugin = (options: CspPluginConfiguration = {}): PluginOption => {
   const { algorithm = "sha384" } = options;
 
   const startingPolicy = options.policy ?? { ...DEFAULT_CSP_POLICY };
@@ -45,22 +48,16 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin 
 
         const htmlPath = resolvePath("index.html", config);
 
-        const htmlFile = Bun.file(htmlPath);
+        const htmlFile = new BunFile(htmlPath);
 
-        if (!(await htmlFile.exists())) {
-          console.error("unable to resolve index.html:", htmlFile);
-          process.exit(1);
-        }
+        const html = await htmlFile.read();
 
-        const html = await htmlFile.text();
+        const scriptHandler = new ScriptHandler(algorithm, config, BunHash, BunFile);
+        const inlineScriptHandler = new InlineScriptHandler(algorithm, config, BunHash, BunFile);
+        const styleHandler = new StyleHandler(algorithm, config, BunHash, BunFile);
+        const inlineStyleHandler = new InlineStyleHandler(algorithm, config, BunHash, BunFile);
 
-        const rewriter = new HTMLRewriter();
-        const scriptHandler = new ScriptHandler(algorithm, config);
-        const inlineScriptHandler = new InlineScriptHandler(algorithm, config);
-        const styleHandler = new StyleHandler(algorithm, config);
-        const inlineStyleHandler = new InlineStyleHandler(algorithm, config);
-
-        const newHtml = rewriter
+        const newHtml = new HTMLRewriter()
           .on("script", scriptHandler)
           .on("script", inlineScriptHandler)
           .on("link", styleHandler)
@@ -79,7 +76,7 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): Plugin 
           newHead = newHtml.replace(/(<html.*>)/, `$1<head>${tag}`);
         }
 
-        await Bun.write(htmlFile, newHead);
+        await htmlFile.write(newHead);
       },
     },
   };
