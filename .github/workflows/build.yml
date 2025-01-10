@@ -16,6 +16,7 @@ jobs:
       - run: bun i --frozen-lockfile
       - run: bun run build
       - run: bun run lint
+      - run: bun run build_fixtures
       - run: bun run test
       - run: bunx playwright install --with-deps
       - run: bun run e2e

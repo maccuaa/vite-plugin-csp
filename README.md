@@ -8,10 +8,9 @@ TODO:
 - colorize output
   - see https://github.com/vite-pwa/vite-plugin-pwa/blob/main/src/log.ts
   - use ansis
-- Node.js version (not Bun)
-  - Make new package?
 - Dont emit internal types in published package
   - Tried https://github.com/ryoppippi/bun-plugin-isolated-decl but it generated an invalid types.d.dts file. Try again in the future.
+- test packages using verdaccio
 
 #### Links
 

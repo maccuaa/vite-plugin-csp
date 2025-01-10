@@ -1,7 +1,4 @@
-import type { InlineScriptHandler } from "./InlineScriptHandler";
-import type { InlineStyleHandler } from "./InlineStyleHandler";
-import type { ScriptHandler } from "./ScriptHandler";
-import type { StyleHandler } from "./StyleHandler";
+import type { PluginOption } from "vite";
 
 /**
  * The algorithm to use when hashing files for the CSP.
@@ -215,9 +212,9 @@ export type CspPolicy = Partial<FetchDirectives & DocumentDirectives & Navigatio
 
 export interface CspPluginConfiguration {
   /**
-   * What hashing algorithm to use. Default is sha-256.
+   * What hashing algorithm to use.
+   *
    * @default "sha256"
-   * @example "sha512"
    */
   algorithm?: HashAlgorithm;
 
@@ -227,19 +224,15 @@ export interface CspPluginConfiguration {
   policy?: CspPolicy;
 }
 
-//
-// Internal Types
-//
+/**
+ *
+ * @param options
+ * @returns
+ */
+export declare const generateCspPlugin: (options?: CspPluginConfiguration) => PluginOption;
 
-export interface Handlers {
-  scriptHandler: ScriptHandler;
-  inlineScriptHandler: InlineScriptHandler;
-  styleHandler: StyleHandler;
-  inlineStyleHandler: InlineStyleHandler;
-}
-
-export interface Config {
-  outDir: string;
-  base: string;
-  root: string;
-}
+/**
+ * Default CSP policy.
+ * @link https://web.dev/articles/strict-csp
+ */
+export declare const DEFAULT_CSP_POLICY: CspPolicy;

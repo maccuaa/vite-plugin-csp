@@ -1,51 +1,19 @@
 {
-  "name": "vite-plugin-bun-csp",
-  "version": "0.1.2",
-  "description": "A Vite plugin that generates and injects a Content Security Policy (CSP) for your SPA application.",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "types": "./dist/types.d.ts",
-    "import": "./dist/index.js",
-    "default": "./dist/index.js"
-  },
+  "name": "vite-plugin-csp-monorepo",
+  "private": true,
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "bun ./build.ts",
+    "build": "bun scripts/build.ts",
+    "build_fixtures": "bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
     "lint": "biome ci .",
     "test": "bun test ./test/index.test.ts",
     "e2e": "bunx playwright test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maccuaa/vite-plugin-bun-csp.git"
-  },
-  "keywords": [
-    "vite",
-    "vite-plugin",
-    "csp",
-    "content-security-policy",
-    "bun",
-    "spa"
-  ],
-  "author": "Andrew MacCuaig <andrewmaccuaig@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/maccuaa/vite-plugin-bun-csp/issues"
-  },
-  "homepage": "https://github.com/maccuaa/vite-plugin-bun-csp#readme",
-  "files": [
-    "dist"
-  ],
-  "peerDependencies": {
-    "vite": "^4.0.0 || ^5.0.0 || ^6.0.0"
-  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@playwright/test": "1.49.1",
-    "@tsconfig/bun": "1.0.7",
-    "@types/bun": "1.1.14",
-    "typescript": "5.7.2",
-    "vite": "6.0.3"
+    "@playwright/test": "1.49.1"
   }
 }

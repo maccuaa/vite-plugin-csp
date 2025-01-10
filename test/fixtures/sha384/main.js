@@ -1,1 +1,1 @@
-document.querySelector("#date").innerHTML = dayjs().format("DD-MM-YYYY");
+document.querySelector("#date").innerHTML = dayjs().format("D-M-YYYY");

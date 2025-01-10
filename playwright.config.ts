@@ -5,12 +5,25 @@ let port = 3000;
 
 const fixtures = await readdir("./test/fixtures");
 
-const APPS = fixtures.map((fixture) => ({
-  url: `http://localhost:${port}`,
-  command: `bun server.ts test/fixtures/${fixture}/dist ${port++}`,
-  testFile: `**/${fixture}.spec.ts`,
-  name: fixture,
-}));
+const envs = ["bun", "node"];
+
+interface App {
+  url: string;
+  command: string;
+  testFile: string;
+  name: string;
+}
+
+const APPS = envs.reduce((apps, env) => {
+  return apps.concat(
+    ...fixtures.map((fixture) => ({
+      url: `http://localhost:${port}`,
+      command: `bun ./scripts/server.ts test/fixtures/${fixture}/dist/${env} ${port++}`,
+      testFile: `**/${fixture}.spec.ts`,
+      name: env,
+    })),
+  );
+}, [] as App[]);
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -33,7 +46,7 @@ const config = defineConfig({
     };
   }),
 
-  /* Run your local dev server before starting the tests */
+  /* Run local dev server before starting the tests */
   webServer: APPS.map((app) => {
     return {
       command: app.command,
@@ -43,7 +56,5 @@ const config = defineConfig({
     };
   }),
 });
-
-console.log(JSON.stringify(config, null, 2));
 
 export default config;
