@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@tsconfig/node-lts": "22.0.1",
-    "typescript": "5.5.3",
-    "vite": "6.0.3"
+    "typescript": "5.7.2",
+    "vite": "6.0.7"
   }
 }
