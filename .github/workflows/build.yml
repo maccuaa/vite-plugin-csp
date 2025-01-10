@@ -22,7 +22,7 @@ jobs:
       - run: bun run lint
       - run: bun run build_fixtures
       - run: bun run test
-      - run: bunx playwright install --with-deps
+      - run: bunx playwright install --with-deps chromium
       - run: bun run e2e
       - run: bun run publint
       - run: bun run typelint
