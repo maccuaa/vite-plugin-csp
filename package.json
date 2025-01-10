@@ -9,11 +9,15 @@
     "build": "bun scripts/build.ts",
     "build_fixtures": "bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
     "lint": "biome ci .",
+    "publint": "publint ./packages/bun && publint ./packages/node",
+    "typelint": "attw ./packages/bun && attw ./packages/node",
     "test": "bun test ./test/index.test.ts",
     "e2e": "bunx playwright test"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.17.2",
     "@biomejs/biome": "1.9.4",
-    "@playwright/test": "1.49.1"
+    "@playwright/test": "1.49.1",
+    "publint": "0.3.0"
   }
 }
