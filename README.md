@@ -1,16 +1,74 @@
-# vite-plugin-bun-csp
+# Vite Plugin CSP
 
-![NPM Version](https://img.shields.io/npm/v/vite-plugin-bun-csp)
+Vite Plugin for adding a Content Security Policy to your Vite application.
 
-TODO:
+| Library                | Version                                                           |
+| ---------------------- | ----------------------------------------------------------------- |
+| `vite-plugin-bun-csp`  | ![NPM Version](https://img.shields.io/npm/v/vite-plugin-bun-csp)  |
+| `vite-plugin-node-csp` | ![NPM Version](https://img.shields.io/npm/v/vite-plugin-node-csp) |
 
-- README docs
-- colorize output
-  - see https://github.com/vite-pwa/vite-plugin-pwa/blob/main/src/log.ts
-  - use ansis
-- Dont emit internal types in published package
-  - Tried https://github.com/ryoppippi/bun-plugin-isolated-decl but it generated an invalid types.d.dts file. Try again in the future.
-- test packages using verdaccio
+## Features
+
+- ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP
+- 📚 Automatically detects and handles Google Fonts
+- ⚡ Supports both Node.js and Bun runtimes
+- 🏎 Fast and lightweight. Bun plugin has 0 dependencies. Node plugin has a single dependency.
+
+## Installation
+
+```bash
+# Bun Plugin
+npm i -D vite-plugin-bun-csp
+
+# Node Plugin
+npm i -D vite-plugin-node-csp
+```
+
+## Basic Usage
+
+Let the plugin analyze the index.html file and automatically configure the CSP.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { generateCspPlugin } from "vite-plugin-bun-csp";
+
+export default defineConfig({
+  root: "src",
+  build: {
+    outDir: "build",
+  },
+  plugins: [generateCspPlugin()],
+});
+```
+
+## Advanced Usage
+
+You can also manually configure the CSP. Even when manually setting the CSP, the plugin will still analyze the HTML, generate the integrity hashes and automatically add them to the policy.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { DEFAULT_CSP_POLICY, generateCspPlugin } from "vite-plugin-bun-csp";
+
+export default defineConfig({
+  root: "src",
+  build: {
+    outDir: "build",
+  },
+  plugins: [
+    generateCspPlugin({
+      algorithm: "sha256",
+      policy: {
+        ...DEFAULT_CSP_POLICY,
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "img-src": ["'self'", "data:"],
+        "upgrade-insecure-requests": [],
+      },
+    }),
+  ],
+});
+```
 
 #### Links
 

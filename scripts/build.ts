@@ -37,6 +37,7 @@ for (const target of ["bun", "node"]) {
   console.info("🎨", "Copying types...");
 
   await $`cp ../shared/types.d.ts ./dist`;
+  await $`cp README.md ./dist`;
 
   console.info("✨", "Build complete.");
 }
