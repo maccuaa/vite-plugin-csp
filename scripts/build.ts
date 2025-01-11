@@ -1,4 +1,3 @@
-import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { $, type Target } from "bun";
 
@@ -19,8 +18,7 @@ for (const target of ["bun", "node"]) {
 
   console.info("🔧", "Building...");
 
-  const packageJsonTxt = await readFile(resolve(baseDir, "package.json"), "utf8");
-  const packageJson = JSON.parse(packageJsonTxt);
+  const packageJson = await Bun.file(resolve(baseDir, "package.json")).json();
   const dependencies = packageJson?.dependencies ?? {};
 
   const external = Object.keys(dependencies).filter((d) => d !== "shared");
@@ -37,7 +35,6 @@ for (const target of ["bun", "node"]) {
   console.info("🎨", "Copying types...");
 
   await $`cp ../shared/types.d.ts ./dist`;
-  await $`cp README.md ./dist`;
 
   console.info("✨", "Build complete.");
 }
