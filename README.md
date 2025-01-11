@@ -1,6 +1,6 @@
 # Vite Plugin CSP
 
-Vite Plugin for adding a Content Security Policy to your Vite application.
+Vite Plugin for adding a Content Security Policy to your Vite SPA application.
 
 | Library                | Version                                                           |
 | ---------------------- | ----------------------------------------------------------------- |
@@ -9,9 +9,9 @@ Vite Plugin for adding a Content Security Policy to your Vite application.
 
 ## Features
 
-- ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP
-- 📚 Automatically detects and handles Google Fonts
-- ⚡ Supports both Node.js and Bun runtimes
+- ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP.
+- 📚 Automatically detects and handles Google Fonts.
+- ⚡ Supports both Node.js and Bun runtimes.
 - 🏎 Fast and lightweight. Bun plugin has 0 dependencies. Node plugin has a single dependency.
 
 ## Installation

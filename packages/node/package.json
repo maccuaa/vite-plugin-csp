@@ -18,7 +18,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maccuaa/vite-plugin-bun-csp.git"
+    "url": "git+https://github.com/maccuaa/vite-plugin-csp.git"
   },
   "keywords": [
     "vite",
@@ -29,9 +29,9 @@
     "spa"
   ],
   "bugs": {
-    "url": "https://github.com/maccuaa/vite-plugin-bun-csp/issues"
+    "url": "https://github.com/maccuaa/vite-plugin-csp/issues"
   },
-  "homepage": "https://github.com/maccuaa/vite-plugin-bun-csp#readme",
+  "homepage": "https://github.com/maccuaa/vite-plugin-csp#readme",
   "files": [
     "dist"
   ],
