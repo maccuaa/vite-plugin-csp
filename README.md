@@ -16,6 +16,8 @@ Vite Plugin for adding a Content Security Policy to your Vite SPA application.
 
 ## Installation
 
+**❗ Install the correct plugin for the runtime you are using!**
+
 ```bash
 # Bun Plugin
 npm i -D vite-plugin-bun-csp
@@ -31,7 +33,12 @@ Let the plugin analyze the index.html file and automatically configure the CSP.
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
+
+// Bun
 import { generateCspPlugin } from "vite-plugin-bun-csp";
+
+// Node
+import { generateCspPlugin } from "vite-plugin-node-csp";
 
 export default defineConfig({
   root: "src",
