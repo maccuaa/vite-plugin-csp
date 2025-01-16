@@ -41,7 +41,7 @@
   "devDependencies": {
     "@tsconfig/bun": "1.0.7",
     "@types/bun": "1.1.16",
-    "typescript": "5.7.2",
+    "typescript": "5.7.3",
     "vite": "6.0.7"
   }
 }
