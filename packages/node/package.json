@@ -42,8 +42,6 @@
     "@miniflare/html-rewriter": "^2.14.4"
   },
   "devDependencies": {
-    "@tsconfig/node-lts": "22.0.1",
-    "typescript": "5.7.2",
-    "vite": "6.0.7"
+    "@tsconfig/node-lts": "22.0.1"
   }
 }
