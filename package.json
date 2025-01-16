@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "test/fixtures/*"
   ],
   "scripts": {
     "build": "bun scripts/build.ts",

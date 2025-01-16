@@ -15,8 +15,8 @@ describe("vite-plugin-csp", () => {
   });
 });
 
-const crawlDirectory = async (path: string, env: "node" | "bun"): Promise<Map<string, bigint>> => {
-  const map = new Map<string, bigint>();
+const crawlDirectory = async (path: string, env: "node" | "bun"): Promise<Map<string, string>> => {
+  const map = new Map<string, string>();
 
   const distPath = resolve(basePath, path, "dist", env);
 
@@ -31,11 +31,9 @@ const crawlDirectory = async (path: string, env: "node" | "bun"): Promise<Map<st
       continue;
     }
 
-    const fileContents = await Bun.file(filePath).arrayBuffer();
+    const fileContents = await Bun.file(filePath).text();
 
-    const hashed = Bun.hash.wyhash(fileContents);
-
-    map.set(file, hashed);
+    map.set(file, fileContents);
   }
 
   return map;
