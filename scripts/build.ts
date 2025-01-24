@@ -2,7 +2,7 @@ import { resolve } from "node:path";
 import { $, type Target } from "bun";
 
 for (const target of ["bun", "node"]) {
-  const baseDir = resolve(__dirname, "..", "./packages", target);
+  const baseDir = resolve(__dirname, "..", "./packages", `vite-${target}`);
 
   $.cwd(baseDir);
 

@@ -2,8 +2,8 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type InlineConfig, type UserConfig, build, loadConfigFromFile, mergeConfig } from "vite";
-import { generateCspPlugin as generateCspPluginBun } from "../packages/bun/dist/index.js";
-import { generateCspPlugin as generateCspPluginNode } from "../packages/node/dist/index.js";
+import { generateCspPlugin as generateCspPluginBun } from "../packages/vite-bun/dist/index.js";
+import { generateCspPlugin as generateCspPluginNode } from "../packages/vite-node/dist/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

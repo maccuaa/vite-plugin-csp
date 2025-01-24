@@ -10,8 +10,8 @@
     "build": "bun scripts/build.ts",
     "build_fixtures": "bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
     "lint": "biome ci .",
-    "publint": "publint ./packages/bun && publint ./packages/node",
-    "typelint": "attw ./packages/bun && attw ./packages/node",
+    "publint": "publint ./packages/vite-bun && publint ./packages/vite-node",
+    "typelint": "attw ./packages/vite-bun && attw ./packages/vite-node",
     "test": "bun test ./test/index.test.ts",
     "e2e": "bunx playwright test"
   },
