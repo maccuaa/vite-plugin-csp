@@ -9,6 +9,7 @@
   "minimumReleaseAge": "3 days",
   "osvVulnerabilityAlerts": true,
   "postUpgradeTasks": {
+    "commands": ["bun install --lockfile-only"],
     "fileFilters": ["./bun.lock"],
     "executionMode": "branch"
   }
