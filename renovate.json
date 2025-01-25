@@ -7,10 +7,5 @@
   },
   "extends": ["config:best-practices", ":rebaseStalePrs", ":preserveSemverRanges"],
   "minimumReleaseAge": "3 days",
-  "osvVulnerabilityAlerts": true,
-  "postUpgradeTasks": {
-    "commands": ["bun install --lockfile-only"],
-    "fileFilters": ["./bun.lock"],
-    "executionMode": "branch"
-  }
+  "osvVulnerabilityAlerts": true
 }
