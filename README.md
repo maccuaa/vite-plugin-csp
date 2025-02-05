@@ -28,7 +28,15 @@ npm i -D vite-plugin-node-csp
 
 ## Basic Usage
 
-Let the plugin analyze the index.html file and automatically configure the CSP.
+Add the meta CSP tag to the `<head>` of your `index.html` file:
+
+```html
+<head>
+  <meta http-equiv="Content-Security-Policy" content="" />
+</head>
+```
+
+Let the plugin analyze the index.html file and automatically configure the CSP. The CSP will be injected into the meta tag.
 
 ```ts
 // vite.config.ts

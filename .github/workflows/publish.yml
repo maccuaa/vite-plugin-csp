@@ -26,3 +26,6 @@ jobs:
       - run: npm publish --provenance --access public ./packages/vite-node
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish --provenance --access public ./packages/cli-bun
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

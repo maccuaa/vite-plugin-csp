@@ -1,8 +1,8 @@
 import { resolve } from "node:path";
-import { $, type Target } from "bun";
+import { $ } from "bun";
 
-for (const target of ["bun", "node"]) {
-  const baseDir = resolve(__dirname, "..", "./packages", `vite-${target}`);
+for (const target of ["vite-bun", "vite-node", "cli-bun"]) {
+  const baseDir = resolve(__dirname, "..", "./packages", target);
 
   $.cwd(baseDir);
 
@@ -28,7 +28,7 @@ for (const target of ["bun", "node"]) {
   await Bun.build({
     entrypoints: [resolve(baseDir, "./src/index.ts")],
     outdir: distDir,
-    target: target as Target,
+    target: target === "vite-node" ? "node" : "bun",
     external,
   });
 

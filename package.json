@@ -8,10 +8,11 @@
   ],
   "scripts": {
     "build": "bun scripts/build.ts",
-    "build_fixtures": "bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
+    "build_fixtures": "bun run clean && bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
+    "clean": "bun scripts/clean.ts",
     "lint": "biome ci .",
-    "publint": "publint ./packages/vite-bun && publint ./packages/vite-node",
-    "typelint": "attw ./packages/vite-bun && attw ./packages/vite-node",
+    "publint": "publint ./packages/vite-bun && publint ./packages/vite-node && publint ./packages/cli-bun",
+    "typelint": "attw ./packages/vite-bun && attw ./packages/vite-node && attw ./packages/cli-bun",
     "test": "bun test ./test/index.test.ts",
     "e2e": "bunx playwright test"
   },
