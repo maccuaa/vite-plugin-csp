@@ -1,6 +1,7 @@
 import { HTMLRewriter } from "@miniflare/html-rewriter";
 import { InlineScriptHandler } from "shared/InlineScriptHandler";
 import { InlineStyleHandler } from "shared/InlineStyleHandler";
+import { MetaHandler } from "shared/MetaHandler";
 import { ScriptHandler } from "shared/ScriptHandler";
 import { StyleHandler } from "shared/StyleHandler";
 import type { Config } from "shared/internal";
@@ -51,21 +52,19 @@ export const generateCspPlugin: typeof GenerateCspPlugin = (options: CspPluginCo
 
         const htmlFile = new NodeFile(htmlPath);
 
-        const html = await htmlFile.read();
-
-        const rewriter = new HTMLRewriter();
+        const originalHtml = await htmlFile.read();
 
         const scriptHandler = new ScriptHandler(algorithm, config, NodeHash, NodeFile);
         const inlineScriptHandler = new InlineScriptHandler(algorithm, config, NodeHash, NodeFile);
         const styleHandler = new StyleHandler(algorithm, config, NodeHash, NodeFile);
         const inlineStyleHandler = new InlineStyleHandler(algorithm, config, NodeHash, NodeFile);
 
-        const newHtml = await rewriter
+        const newHtml = await new HTMLRewriter()
           .on("script", scriptHandler)
           .on("script", inlineScriptHandler)
           .on("link", styleHandler)
           .on("style", inlineStyleHandler)
-          .transform(new Response(html))
+          .transform(new Response(originalHtml))
           .text();
 
         const csp = buildCsp(policy, {
@@ -75,17 +74,11 @@ export const generateCspPlugin: typeof GenerateCspPlugin = (options: CspPluginCo
           inlineStyleHandler,
         });
 
-        const tag = `<meta http-equiv="Content-Security-Policy" content="${csp}" />`;
+        const metaHandler = new MetaHandler(csp);
 
-        let newHead: string;
+        const finalHtml = await new HTMLRewriter().on("meta", metaHandler).transform(new Response(newHtml)).text();
 
-        if (newHtml.includes("<head>")) {
-          newHead = newHtml.replace(/<head>/, `<head>${tag}`);
-        } else {
-          newHead = newHtml.replace(/(<html.*>)/, `$1<head>${tag}`);
-        }
-
-        await htmlFile.write(newHead);
+        await htmlFile.write(finalHtml);
       },
     },
   };

@@ -59,3 +59,13 @@ export const resolvePath = (filepath: string, { base, outDir, root }: Config) =>
 export const generateId = () => {
   return randomBytes(16).toString("hex");
 };
+
+/**
+ * Default CSP policy.
+ * @link https://web.dev/articles/strict-csp
+ */
+export const DEFAULT_CSP_POLICY: CspPolicy = {
+  "base-uri": ["'none'"],
+  "default-src": ["'self'"],
+  "object-src": ["'none'"],
+};

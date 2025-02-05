@@ -5,11 +5,13 @@
   "version": "1.0.0",
   "exports": {
     "./BaseHandler": "./BaseHandler.ts",
+    "./BunHandler": "./BunHandler.ts",
     "./CspFile": "./CspFile.ts",
     "./Hasher": "./Hasher.ts",
     "./InlineScriptHandler": "./InlineScriptHandler.ts",
     "./InlineStyleHandler": "./InlineStyleHandler.ts",
     "./internal": "./internal.d.ts",
+    "./MetaHandler": "./MetaHandler.ts",
     "./ScriptHandler": "./ScriptHandler.ts",
     "./StyleHandler": "./StyleHandler.ts",
     "./types": "./types.d.ts",
