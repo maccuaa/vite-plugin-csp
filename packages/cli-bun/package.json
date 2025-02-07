@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "@tsconfig/bun": "1.0.7",
-    "@types/bun": "1.2.0"
+    "@types/bun": "1.2.2"
   },
   "dependencies": {
     "@commander-js/extra-typings": "13.1.0",
