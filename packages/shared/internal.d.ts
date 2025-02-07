@@ -15,8 +15,19 @@ export interface Handlers {
 }
 
 export interface Config {
+  /**
+   * The output directory (relative to project root).
+   */
   outDir: string;
+
+  /**
+   * Base public path when served in development or production.
+   */
   base: string;
+
+  /**
+   * Project root directory (where index.html is located). Can be an absolute path, or a path relative to the current working directory.
+   */
   root: string;
 }
 
