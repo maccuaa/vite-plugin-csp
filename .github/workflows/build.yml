@@ -26,6 +26,14 @@ jobs:
       - run: bun run e2e
       - run: bun run publint
       - run: bun run typelint
+      - name: Publish to NPM
+        if: ${{ steps.release.outputs.releases_created }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish --provenance --access public ./packages/vite-bun
+          npm publish --provenance --access public ./packages/vite-node
+          npm publish --provenance --access public ./packages/cli-bun
   release-please:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
@@ -36,3 +44,4 @@ jobs:
       - uses: googleapis/release-please-action@7987652d64b4581673a76e33ad5e98e3dd56832f # v4
         with:
           release-type: node
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
