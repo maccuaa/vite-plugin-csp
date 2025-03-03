@@ -31,8 +31,8 @@
     "dist"
   ],
   "devDependencies": {
-    "@tsconfig/bun": "1.0.7",
-    "@types/bun": "1.2.4"
+    "@tsconfig/bun": "^1.0.7",
+    "@types/bun": "^1.2.4"
   },
   "dependencies": {
     "@commander-js/extra-typings": "13.1.0",
