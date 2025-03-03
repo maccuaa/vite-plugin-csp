@@ -20,7 +20,7 @@
     "@arethetypeswrong/cli": "0.17.4",
     "@biomejs/biome": "1.9.4",
     "@playwright/test": "1.50.1",
-    "publint": "0.3.6",
+    "publint": "0.3.7",
     "typescript": "5.7.3",
     "vite": "6.2.0"
   }
