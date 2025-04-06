@@ -22,6 +22,6 @@
     "@playwright/test": "1.51.1",
     "publint": "0.3.10",
     "typescript": "5.8.2",
-    "vite": "6.2.4"
+    "vite": "6.2.5"
   }
 }
