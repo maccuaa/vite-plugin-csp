@@ -23,5 +23,6 @@
     "publint": "0.3.10",
     "typescript": "5.8.3",
     "vite": "6.2.5"
-  }
+  },
+  "version": "1.0.0"
 }
