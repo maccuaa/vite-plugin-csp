@@ -1,11 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices", ":rebaseStalePrs", ":preserveSemverRanges"],
   "timezone": "America/New_York",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
   },
-  "extends": ["config:best-practices", ":rebaseStalePrs", ":preserveSemverRanges"],
+  "packageRules": [
+    {
+      "depTypeList": ["peerDependencies"],
+      "enabled": false
+    }
+  ],
   "minimumReleaseAge": "3 days",
   "osvVulnerabilityAlerts": true
 }
