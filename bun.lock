@@ -9,7 +9,7 @@
         "@playwright/test": "1.52.0",
         "publint": "0.3.12",
         "typescript": "5.8.3",
-        "vite": "6.3.2",
+        "vite": "6.3.3",
       },
     },
     "packages/cli-bun": {
@@ -614,7 +614,7 @@
 
     "validate-npm-package-name": ["validate-npm-package-name@5.0.1", "", {}, "sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ=="],
 
-    "vite": ["vite@6.3.2", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.4.3", "picomatch": "^4.0.2", "postcss": "^8.5.3", "rollup": "^4.34.9", "tinyglobby": "^0.2.12" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^18.0.0 || ^20.0.0 || >=22.0.0", "jiti": ">=1.21.0", "less": "*", "lightningcss": "^1.21.0", "sass": "*", "sass-embedded": "*", "stylus": "*", "sugarss": "*", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "jiti", "less", "lightningcss", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": { "vite": "bin/vite.js" } }, "sha512-ZSvGOXKGceizRQIZSz7TGJ0pS3QLlVY/9hwxVh17W3re67je1RKYzFHivZ/t0tubU78Vkyb9WnHPENSBCzbckg=="],
+    "vite": ["vite@6.3.3", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.4.4", "picomatch": "^4.0.2", "postcss": "^8.5.3", "rollup": "^4.34.9", "tinyglobby": "^0.2.13" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^18.0.0 || ^20.0.0 || >=22.0.0", "jiti": ">=1.21.0", "less": "*", "lightningcss": "^1.21.0", "sass": "*", "sass-embedded": "*", "stylus": "*", "sugarss": "*", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "jiti", "less", "lightningcss", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": { "vite": "bin/vite.js" } }, "sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw=="],
 
     "vite-plugin-bun-csp": ["vite-plugin-bun-csp@workspace:packages/vite-bun"],
 
