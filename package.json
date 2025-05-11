@@ -17,7 +17,7 @@
     "e2e": "bunx playwright test"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.17.4",
+    "@arethetypeswrong/cli": "0.18.0",
     "@biomejs/biome": "1.9.4",
     "@playwright/test": "1.52.0",
     "publint": "0.3.12",
