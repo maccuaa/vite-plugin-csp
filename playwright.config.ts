@@ -5,7 +5,7 @@ let port = 3000;
 
 const fixtures = await readdir("./test/fixtures");
 
-const envs = ["bun", "node"];
+const envs = ["bun", "node", "cli-bun"];
 
 interface App {
   url: string;

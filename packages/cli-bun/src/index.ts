@@ -13,6 +13,21 @@ import { description, name, version } from "../package.json";
 
 const program = new Command();
 
+const resolveConfig = async (configFilePath: string): Promise<CspPluginConfiguration> => {
+  const exists = await Bun.file(configFilePath).exists();
+
+  if (exists) {
+    const imported = await import(configFilePath);
+
+    return imported?.default as CspPluginConfiguration;
+  }
+
+  return {
+    algorithm: "sha384",
+    policy: DEFAULT_CSP_POLICY,
+  };
+};
+
 program
   .name(name)
   .description(description)
@@ -39,18 +54,3 @@ program
   });
 
 program.parse();
-
-const resolveConfig = async (configFilePath: string): Promise<CspPluginConfiguration> => {
-  const exists = await Bun.file(configFilePath).exists();
-
-  if (exists) {
-    const imported = await import(configFilePath);
-
-    return imported?.default as CspPluginConfiguration;
-  }
-
-  return {
-    algorithm: "sha384",
-    policy: DEFAULT_CSP_POLICY,
-  };
-};

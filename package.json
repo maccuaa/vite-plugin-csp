@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "bun scripts/build.ts",
-    "build_fixtures": "bun run clean && bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts",
+    "build_fixtures": "bun run clean && bun scripts/fixtures.ts && node --experimental-strip-types scripts/fixtures.ts && bun scripts/fixtures.ts cli-bun",
     "clean": "bun scripts/clean.ts",
     "lint": "biome ci .",
     "publint": "publint ./packages/vite-bun && publint ./packages/vite-node && publint ./packages/cli-bun",

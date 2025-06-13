@@ -10,12 +10,14 @@ describe("vite-plugin-csp", () => {
   test.each(fixtures)("%s", async (fixture) => {
     const bunMap = await crawlDirectory(fixture, "bun");
     const nodeMap = await crawlDirectory(fixture, "node");
+    const bunCliMap = await crawlDirectory(fixture, "cli-bun");
 
     expect(bunMap).toEqual(nodeMap);
+    expect(bunMap).toEqual(bunCliMap);
   });
 });
 
-const crawlDirectory = async (path: string, env: "node" | "bun"): Promise<Map<string, string>> => {
+const crawlDirectory = async (path: string, env: "node" | "bun" | "cli-bun"): Promise<Map<string, string>> => {
   const map = new Map<string, string>();
 
   const distPath = resolve(basePath, path, "dist", env);

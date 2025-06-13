@@ -1,18 +1,32 @@
+import { exec } from "node:child_process";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 import { type InlineConfig, type UserConfig, build, loadConfigFromFile, mergeConfig } from "vite";
 import { generateCspPlugin as generateCspPluginBun } from "../packages/vite-bun/dist/index.js";
 import { generateCspPlugin as generateCspPluginNode } from "../packages/vite-node/dist/index.js";
 
+const execAsync = promisify(exec);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const env = typeof Bun !== "undefined" ? "bun" : "node";
+type Env = "bun" | "node" | "cli-bun";
 
-const loadConfig = async (path: string, env?: "bun" | "node"): Promise<UserConfig | null> => {
+const getEnv = (): Env => {
+  const args = process.argv.slice(2);
+  if (args.includes("cli-bun")) {
+    return "cli-bun";
+  }
+  return typeof Bun !== "undefined" ? "bun" : "node";
+};
+
+const env: Env = getEnv();
+
+const loadConfig = async (path: string, env?: Env): Promise<UserConfig | null> => {
   try {
-    const configPath = env ? resolve(path, `vite.${env}.config.ts`) : resolve(path, "vite.config.ts");
+    const configPath = env === "cli-bun" ? resolve(path, "vite.config.ts") : resolve(path, `vite.${env}.config.ts`);
 
     await stat(configPath);
 
@@ -20,9 +34,6 @@ const loadConfig = async (path: string, env?: "bun" | "node"): Promise<UserConfi
 
     return result?.config ?? null;
   } catch (e) {
-    if (env) {
-      return await loadConfig(path);
-    }
     return null;
   }
 };
@@ -31,7 +42,7 @@ const buildVite = async (entryPath: string) => {
   const projectRoot = resolve(__dirname, entryPath);
   const outFile = resolve(projectRoot, "dist", env, "index.html");
 
-  const plugin = env === "bun" ? generateCspPluginBun : generateCspPluginNode;
+  const plugin = env === "cli-bun" ? undefined : env === "bun" ? generateCspPluginBun : generateCspPluginNode;
 
   const defaultConfig: InlineConfig = {
     root: projectRoot,
@@ -44,7 +55,7 @@ const buildVite = async (entryPath: string) => {
 
   const fallbackConfig: InlineConfig = {
     // @ts-ignore - unable to import directory as a package in Node.js
-    plugins: [plugin()],
+    plugins: [plugin ? plugin() : undefined],
   };
 
   const fixtureConfig = await loadConfig(projectRoot, env);
@@ -54,6 +65,26 @@ const buildVite = async (entryPath: string) => {
   await build(config);
 
   return await readFile(outFile, "utf8");
+};
+
+const runCli = async (entryPath: string, fixture: string) => {
+  const outFolder = resolve(entryPath, "dist", env);
+
+  // check if csp.config.ts exists
+  const configFilePath = resolve(entryPath, "csp.config.ts");
+  const exists = await stat(configFilePath)
+    .then(() => true)
+    .catch(() => false);
+
+  // execute the following shell command with node
+  const bunCommand = `bun run ./packages/cli-bun/src/index.ts -d "${outFolder}" ${exists ? `-c "${configFilePath}"` : ""} ${fixture === "base-path" ? "-b base_path" : ""}`;
+
+  const { stderr } = await execAsync(bunCommand);
+
+  if (stderr) {
+    console.error("CLI Bun error:", stderr);
+    process.exit(1);
+  }
 };
 
 const fixturePath = resolve(__dirname, "../test/fixtures");
@@ -69,4 +100,10 @@ for (const fixture of fixtures) {
   console.log("Building", fixture);
 
   await buildVite(path);
+
+  if (env === "cli-bun") {
+    console.log("Running Bun CSP CLI:", fixture);
+
+    await runCli(path, fixture);
+  }
 }

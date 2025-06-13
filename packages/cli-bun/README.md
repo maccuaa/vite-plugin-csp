@@ -1,4 +1,4 @@
-# Vite Plugin CSP Bun
+# CSP Bun CLI
 
 CLI app for adding a Content Security Policy to your SPA application using the Bun runtime.
 

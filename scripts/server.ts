@@ -30,11 +30,18 @@ const staticServer = Bun.serve({
   async fetch(req) {
     const url = new URL(req.url);
 
-    const filename = url.pathname === "/" ? "index.html" : url.pathname;
+    const filename = url.pathname === "/" ? "index.html" : url.pathname.replace(/^\/base_path/, "");
 
     const fullPath = join(baseDir, filename);
 
     console.info("🟢", req.method, filename);
+
+    const file = Bun.file(fullPath);
+
+    if (!(await file.exists())) {
+      console.info("🔴", "File not found:", fullPath);
+      return new Response("File not found", { status: 404 });
+    }
 
     return new Response(Bun.file(fullPath));
   },
