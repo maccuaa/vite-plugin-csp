@@ -1,6 +1,7 @@
 {
   "packages": {
-    "./packages/cli-bun": {
+    "packages/cli-bun": {
+      "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",
       "release-type": "node",
       "bump-minor-pre-major": false,
@@ -8,7 +9,8 @@
       "draft": false,
       "prerelease": false
     },
-    "./packages/vite-bun": {
+    "packages/vite-bun": {
+      "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",
       "release-type": "node",
       "bump-minor-pre-major": false,
@@ -16,7 +18,8 @@
       "draft": false,
       "prerelease": false
     },
-    "./packages/vite-node": {
+    "packages/vite-node": {
+      "include-component-in-tag": true,
       "changelog-path": "CHANGELOG.md",
       "release-type": "node",
       "bump-minor-pre-major": false,

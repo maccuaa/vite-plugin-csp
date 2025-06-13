@@ -34,14 +34,3 @@ jobs:
           npm publish --provenance --access public ./packages/vite-bun
           npm publish --provenance --access public ./packages/vite-node
           npm publish --provenance --access public ./packages/cli-bun
-  release-please:
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: googleapis/release-please-action@a02a34c4d625f9be7cb89156071d8567266a2445 # v4
-        with:
-          release-type: node
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
