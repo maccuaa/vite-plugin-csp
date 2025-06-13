@@ -19,7 +19,7 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
     "@biomejs/biome": "1.9.4",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.53.0",
     "publint": "0.3.12",
     "typescript": "5.8.3",
     "vite": "6.3.5"
