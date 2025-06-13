@@ -1,5 +1,5 @@
 {
-  "packages/cli-bun": "0.0.0",
-  "packages/vite-bun": "0.0.0",
-  "packages/vite-node": "0.0.0"
+  "packages/cli-bun": "1.0.0",
+  "packages/vite-bun": "1.0.0",
+  "packages/vite-node": "1.0.0"
 }
