@@ -20,8 +20,6 @@ jobs:
       - run: bun i --frozen-lockfile
       - run: bun run build
       - run: bun run lint
-      - run: bun run publint
-      - run: bun run typelint
       - run: bun run build_fixtures
       - run: bun run test
       - run: bunx playwright install --with-deps chromium

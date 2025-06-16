@@ -1,11 +1,12 @@
 import { readdir } from "node:fs/promises";
 import { defineConfig, devices } from "@playwright/test";
+import type { Target } from "./scripts/fixtures";
 
 let port = 3000;
 
 const fixtures = await readdir("./test/fixtures");
 
-const envs = ["bun", "node", "cli-bun"];
+const envs: Target[] = ["bun-cli", "bun-vite"];
 
 interface App {
   url: string;

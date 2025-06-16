@@ -2,10 +2,6 @@
 
 CLI app for adding a Content Security Policy to your SPA application using the Bun runtime.
 
-## Documentation
-
-See docs [here](https://github.com/maccuaa/vite-plugin-csp).
-
 ## Features
 
 - ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP.
@@ -15,7 +11,11 @@ See docs [here](https://github.com/maccuaa/vite-plugin-csp).
 ## Installation
 
 ```bash
+# Local project install
 bun add -D csp-bun-cli
+
+# Global install
+bun add -g csp-bun-cli
 ```
 
 ## Basic Usage

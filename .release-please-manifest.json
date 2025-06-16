@@ -1,5 +1,4 @@
 {
   "packages/cli-bun": "1.0.0",
-  "packages/vite-bun": "1.0.0",
-  "packages/vite-node": "1.0.0"
+  "packages/vite-bun": "1.0.0"
 }

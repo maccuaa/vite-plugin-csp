@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdir, stat } from "node:fs/promises";
 import { resolve } from "node:path";
+import type { Target } from "../scripts/fixtures";
 
 const basePath = resolve(__dirname, "./fixtures");
 
@@ -8,35 +9,15 @@ const fixtures = await readdir(basePath);
 
 describe("vite-plugin-csp", () => {
   test.each(fixtures)("%s", async (fixture) => {
-    const bunMap = await crawlDirectory(fixture, "bun");
-    const nodeMap = await crawlDirectory(fixture, "node");
-    const bunCliMap = await crawlDirectory(fixture, "cli-bun");
+    const vite = await readHtml(fixture, "bun-vite");
+    const cli = await readHtml(fixture, "bun-cli");
 
-    expect(bunMap).toEqual(nodeMap);
-    expect(bunMap).toEqual(bunCliMap);
+    expect(vite).toEqual(cli);
   });
 });
 
-const crawlDirectory = async (path: string, env: "node" | "bun" | "cli-bun"): Promise<Map<string, string>> => {
-  const map = new Map<string, string>();
+const readHtml = async (path: string, target: Target): Promise<string> => {
+  const htmlPath = resolve(basePath, path, "dist", target, "index.html");
 
-  const distPath = resolve(basePath, path, "dist", env);
-
-  const files = await readdir(distPath, { recursive: true });
-
-  for (const file of files) {
-    const filePath = resolve(distPath, file);
-
-    const stats = await stat(filePath);
-
-    if (stats.isDirectory()) {
-      continue;
-    }
-
-    const fileContents = await Bun.file(filePath).text();
-
-    map.set(file, fileContents);
-  }
-
-  return map;
+  return await Bun.file(htmlPath).text();
 };

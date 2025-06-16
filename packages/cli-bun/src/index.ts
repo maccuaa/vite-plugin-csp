@@ -7,8 +7,8 @@ import type { Config } from "shared/internal";
 export type { CspPluginConfiguration } from "shared/types";
 import type { CspPluginConfiguration } from "shared/types";
 import { DEFAULT_CSP_POLICY } from "shared/utils";
-import { BunFile } from "../../vite-bun/src/BunFile";
-import { BunHash } from "../../vite-bun/src/BunHash";
+import { BunFile } from "../../shared/BunFile";
+import { BunHash } from "../../shared/BunHash";
 import { description, name, version } from "../package.json";
 
 const program = new Command();

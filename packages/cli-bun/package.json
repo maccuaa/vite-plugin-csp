@@ -30,12 +30,12 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "commander": "14.0.0"
+  },
   "devDependencies": {
+    "@commander-js/extra-typings": "14.0.0",
     "@tsconfig/bun": "^1.0.7",
     "@types/bun": "^1.2.4"
-  },
-  "dependencies": {
-    "@commander-js/extra-typings": "14.0.0",
-    "commander": "14.0.0"
   }
 }

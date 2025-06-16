@@ -2,10 +2,6 @@
 
 Vite Plugin for adding a Content Security Policy to your Vite application using the Bun runtime.
 
-## Documentation
-
-See docs [here](https://github.com/maccuaa/vite-plugin-csp).
-
 ## Features
 
 - ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP.
@@ -16,4 +12,61 @@ See docs [here](https://github.com/maccuaa/vite-plugin-csp).
 
 ```bash
 bun add -D vite-plugin-bun-csp
+```
+
+## Basic Usage
+
+Add the meta CSP tag to the `<head>` of your `index.html` file:
+
+```html
+<head>
+  <meta http-equiv="Content-Security-Policy" content="" />
+</head>
+```
+
+Add the plugin to your Vite config
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+
+import { generateCspPlugin } from "vite-plugin-bun-csp";
+
+export default defineConfig({
+  root: "src",
+  build: {
+    outDir: "build",
+  },
+  plugins: [generateCspPlugin()],
+});
+```
+
+## Configuration (Optional)
+
+**Note:** Setting a config is optional. If no config is provided, then the default values will be used.
+
+You can also manually configure the CSP. Even when manually setting the CSP, the plugin will still analyze the HTML, generate the integrity hashes and, automatically add them to the policy.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { DEFAULT_CSP_POLICY, generateCspPlugin } from "vite-plugin-bun-csp";
+
+export default defineConfig({
+  root: "src",
+  build: {
+    outDir: "build",
+  },
+  plugins: [
+    generateCspPlugin({
+      algorithm: "sha256",
+      policy: {
+        ...DEFAULT_CSP_POLICY,
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "img-src": ["'self'", "data:"],
+        "upgrade-insecure-requests": [],
+      },
+    }),
+  ],
+});
 ```

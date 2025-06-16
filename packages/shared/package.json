@@ -5,7 +5,9 @@
   "version": "1.0.0",
   "exports": {
     "./BaseHandler": "./BaseHandler.ts",
+    "./BunFile": "./BunFile.ts",
     "./BunHandler": "./BunHandler.ts",
+    "./BunHash": "./BunHash.ts",
     "./CspFile": "./CspFile.ts",
     "./Hasher": "./Hasher.ts",
     "./InlineScriptHandler": "./InlineScriptHandler.ts",

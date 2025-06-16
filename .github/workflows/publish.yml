@@ -25,5 +25,4 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish --provenance --access public ./packages/vite-bun
-          npm publish --provenance --access public ./packages/vite-node
           npm publish --provenance --access public ./packages/cli-bun
