@@ -4,7 +4,6 @@ import { generateCspPlugin } from "vite-plugin-bun-csp";
 
 export default defineConfig({
   plugins: [
-    react(),
     generateCspPlugin({
       algorithm: "sha256",
     }),

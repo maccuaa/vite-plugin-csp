@@ -1,13 +1,18 @@
 import { readdir } from "node:fs/promises";
-import { resolve } from "node:path";
+import { join, resolve } from "node:path";
 import { $ } from "bun";
 import { type InlineConfig, type UserConfig, build, loadConfigFromFile, mergeConfig } from "vite";
 import { generateCspPlugin } from "../packages/vite-bun/src";
 
 export type Target = "bun-cli" | "bun-vite";
 
+/**
+ * Load the Vite configuration file from the specified path.
+ * @param path the path to the fixture project root
+ * @returns the Vite configuration or null if it does not exist
+ */
 const loadViteConfig = async (path: string): Promise<UserConfig | null> => {
-  const configPath = resolve(path, "vite.config.ts");
+  const configPath = join(path, "vite.config.ts");
 
   const exists = await Bun.file(configPath).exists();
 
@@ -20,43 +25,61 @@ const loadViteConfig = async (path: string): Promise<UserConfig | null> => {
   return result?.config ?? null;
 };
 
-const buildFixture = async (projectRoot: string, env: Target) => {
-  const outFile = resolve(projectRoot, "dist", env, "index.html");
-
+/**
+ * Use Vite to build the fixture project.
+ *
+ * Use Vite for both the Bun CLI and Bun Vite plugin so that there is a consistent output which can be compared in the unit tests.
+ *
+ * @param projectRoot the path to the fixture project root
+ * @param target the target environment, either "bun-cli" or "bun-vite"
+ * @returns the contents of the index.html file after building the fixture project
+ */
+const buildFixture = async (projectRoot: string, target: Target) => {
   const defaultConfig: InlineConfig = {
     root: projectRoot,
     logLevel: "error",
     build: {
       emptyOutDir: true,
-      outDir: `dist/${env}`,
+      outDir: `dist/${target}`,
     },
   };
 
   // Don't use the plugin if we're not using the Bun CLI CSP plugin
   const fallbackConfig: InlineConfig = {
-    plugins: [env === "bun-vite" ? generateCspPlugin() : null],
+    plugins: [target === "bun-vite" ? generateCspPlugin() : null],
   };
 
   const fixtureConfig = await loadViteConfig(projectRoot);
 
   const config = mergeConfig(defaultConfig, fixtureConfig ?? fallbackConfig, true);
 
+  // If we're using the Bun CLI, we don't want to use the generateCspPlugin
+  if (target === "bun-cli") {
+    config.plugins = config.plugins.filter((plugin: { name?: string }) => plugin?.name !== "generate-csp");
+  }
+
   await build(config);
+
+  const outFile = join(projectRoot, "dist", target, "index.html");
 
   return await Bun.file(outFile).text();
 };
 
-const runCliPlugin = async (entryPath: string, fixture: string, env: Target) => {
-  const outFolder = resolve(entryPath, "dist", env);
+const runCliPlugin = async (entryPath: string, fixture: string, target: Target) => {
+  const outFolder = join(entryPath, "dist", target);
 
-  const configFilePath = resolve(entryPath, "csp.config.ts");
+  const configFilePath = join(entryPath, "csp.config.ts");
 
   const exists = await Bun.file(configFilePath).exists();
 
-  await $`bun run ./packages/cli-bun/src/index.ts -d "${outFolder}" ${exists ? `-c "${configFilePath}"` : ""} ${fixture === "base-path" ? "-b base_path" : ""}`.quiet();
+  await $`bun run ./packages/cli-bun/src/index.ts -d ${outFolder} ${exists ? `-c ${configFilePath}` : ""} ${fixture === "base-path" ? "-b base_path" : ""}`.quiet();
+
+  const outFile = join(outFolder, "index.html");
+
+  return await Bun.file(outFile).text();
 };
 
-const fixturePath = resolve(__dirname, "../test/fixtures");
+const fixturePath = join(__dirname, "../test/fixtures");
 
 const fixtures = await readdir(fixturePath);
 
