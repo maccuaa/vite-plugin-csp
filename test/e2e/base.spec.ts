@@ -46,3 +46,11 @@ export const verifyFont = async ({ page }: Props) => {
 
   expect(fontFamily).toBe("Tomorrow");
 };
+
+export const verifyMark = async ({ page }: Props) => {
+  const element = page.locator("mark");
+
+  const color = await element.evaluate((el) => window.getComputedStyle(el).backgroundColor);
+
+  expect(color).toBe("rgb(253, 231, 192)");
+};

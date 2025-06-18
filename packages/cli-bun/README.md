@@ -6,7 +6,7 @@ CLI app for adding a Content Security Policy to your SPA application using the B
 
 - ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the CSP.
 - 📚 Automatically detects and handles Google Fonts.
-- 🏎 Uses Bun's built-in implementation of Cloudflare's [HTMLRewriter](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter/) for parsing HTML.
+- 🏎 Zero dependencies. Uses Bun's built-in implementation of Cloudflare's [HTMLRewriter](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter/) for parsing HTML.
 
 ## Installation
 

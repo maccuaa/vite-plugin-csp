@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "build": "bun scripts/build.ts",
-    "build_fixtures": "bun run clean && bun scripts/fixtures.ts",
+    "build_fixtures": "bun scripts/fixtures.ts",
     "clean": "bun scripts/clean.ts",
     "lint": "biome ci .",
     "test": "bun test ./test/index.test.ts",

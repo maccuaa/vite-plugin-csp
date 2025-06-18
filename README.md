@@ -11,7 +11,7 @@ Packages for adding a Content Security Policy to your SPA applications:
 
 - ✨ Automatically calculates Subresource Integrity (SRI) hashes of JavaScript and CSS assets and adds them to the meta Content Security Policy (CSP) directive in your HTML.
 - 📚 Automatically detects and handles Google Fonts.
-- 🏎 Fast and lightweight. Bun Vite plugin has 0 dependencies. CLI has a single dependency - [Commander](https://github.com/tj/commander.js)
+- 🏎 Fast and lightweight. Packages contain 0 dependencies.
 
 ## Documentation
 

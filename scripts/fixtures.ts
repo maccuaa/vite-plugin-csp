@@ -12,7 +12,7 @@ export type Target = "bun-cli" | "bun-vite";
  * @returns the Vite configuration or null if it does not exist
  */
 const loadViteConfig = async (path: string): Promise<UserConfig | null> => {
-  const configPath = join(path, "vite.config.ts");
+  const configPath = join(path, "_vite.config.ts");
 
   const exists = await Bun.file(configPath).exists();
 
@@ -40,13 +40,12 @@ const buildFixture = async (projectRoot: string, target: Target) => {
     logLevel: "error",
     build: {
       emptyOutDir: true,
-      outDir: `dist/${target}`,
+      outDir: join("dist", target), // relative to the project root
     },
   };
 
-  // Don't use the plugin if we're not using the Bun CLI CSP plugin
   const fallbackConfig: InlineConfig = {
-    plugins: [target === "bun-vite" ? generateCspPlugin() : null],
+    plugins: [generateCspPlugin()],
   };
 
   const fixtureConfig = await loadViteConfig(projectRoot);
@@ -72,7 +71,15 @@ const runCliPlugin = async (entryPath: string, fixture: string, target: Target) 
 
   const exists = await Bun.file(configFilePath).exists();
 
-  await $`bun run ./packages/cli-bun/src/index.ts -d ${outFolder} ${exists ? `-c ${configFilePath}` : ""} ${fixture === "base-path" ? "-b base_path" : ""}`.quiet();
+  // Bun shell command escaping is a little funky
+
+  if (fixture === "base-path") {
+    await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder} --base base_path`;
+  } else if (exists) {
+    await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder} --config ${configFilePath}`;
+  } else {
+    await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder}`;
+  }
 
   const outFile = join(outFolder, "index.html");
 
@@ -83,8 +90,8 @@ const fixturePath = join(__dirname, "../test/fixtures");
 
 const fixtures = await readdir(fixturePath);
 
-for (const env of ["bun-cli", "bun-vite"] as Target[]) {
-  console.log("🏗️ ", env);
+for (const target of ["bun-cli", "bun-vite"] as Target[]) {
+  console.log("🏗️ ", target);
   console.log("=======");
 
   for (const fixture of fixtures) {
@@ -92,10 +99,10 @@ for (const env of ["bun-cli", "bun-vite"] as Target[]) {
 
     console.log("Building", fixture);
 
-    await buildFixture(path, env);
+    await buildFixture(path, target);
 
-    if (env === "bun-cli") {
-      await runCliPlugin(path, fixture, env);
+    if (target === "bun-cli") {
+      await runCliPlugin(path, fixture, target);
     }
   }
 }
