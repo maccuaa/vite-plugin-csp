@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/maccuaa/vite-plugin-csp/compare/v1.0.0...v1.1.0) (2025-06-20)
+
+
+### Features
+
+* remove commander dependency. fix tests ([e593683](https://github.com/maccuaa/vite-plugin-csp/commit/e59368362bc87ee585786f8dc01bdaff54078477))
+
+
+### Bug Fixes
+
+* fix CLI config resolving ([184d05d](https://github.com/maccuaa/vite-plugin-csp/commit/184d05d01bd6b182f5337b12eb3d6feec52b7ace))
+
 ## 1.0.0 (2025-06-13)
 
 
