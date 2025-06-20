@@ -1,5 +1,3 @@
-import type { PluginOption } from "vite";
-
 /**
  * The algorithm to use when hashing files for the CSP.
  * Browsers only support `sha256`, `sha384`, or `sha512`
@@ -223,16 +221,3 @@ export interface CspPluginConfiguration {
    */
   policy?: CspPolicy;
 }
-
-/**
- *
- * @param options
- * @returns
- */
-export declare const generateCspPlugin: (options?: CspPluginConfiguration) => PluginOption;
-
-/**
- * Default CSP policy.
- * @link https://web.dev/articles/strict-csp
- */
-export declare const DEFAULT_CSP_POLICY: CspPolicy;

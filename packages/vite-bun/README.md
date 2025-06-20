@@ -50,7 +50,7 @@ You can also manually configure the CSP. Even when manually setting the CSP, the
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import { DEFAULT_CSP_POLICY, generateCspPlugin } from "vite-plugin-bun-csp";
+import { generateCspPlugin } from "vite-plugin-bun-csp";
 
 export default defineConfig({
   root: "src",
@@ -61,7 +61,6 @@ export default defineConfig({
     generateCspPlugin({
       algorithm: "sha256",
       policy: {
-        ...DEFAULT_CSP_POLICY,
         "style-src": ["'self'", "'unsafe-inline'"],
         "img-src": ["'self'", "data:"],
         "upgrade-insecure-requests": [],

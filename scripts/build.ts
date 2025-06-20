@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { $ } from "bun";
+import { dts } from "bun-dts";
 
 const rootDir = resolve(__dirname, "..");
 
@@ -32,9 +33,9 @@ for (const target of ["vite-bun", "cli-bun"]) {
     outdir: distDir,
     target: "bun",
     external,
+    plugins: [dts({ resolve: ["shared/types"] })],
   });
 
-  // TODO: try generating types with `bunx tsc --emitDeclarationOnly`
   console.info("🎨", "Copying types...");
 
   await $`cp ../shared/types.d.ts ./dist`;
