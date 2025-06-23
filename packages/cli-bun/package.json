@@ -1,6 +1,6 @@
 {
   "name": "csp-bun-cli",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A CLI that generates and injects a Content Security Policy (CSP) for your SPA application.",
   "author": "Andrew MacCuaig <andrewmaccuaig@gmail.com>",
   "license": "MIT",
