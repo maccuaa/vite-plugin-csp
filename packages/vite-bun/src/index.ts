@@ -1,6 +1,5 @@
-import { handler } from "shared/BunHandler";
-
 import { BunFile } from "shared/BunFile";
+import { handler } from "shared/BunHandler";
 import { BunHash } from "shared/BunHash";
 import type { Config } from "shared/internal";
 import type { CspPluginConfiguration } from "shared/types";

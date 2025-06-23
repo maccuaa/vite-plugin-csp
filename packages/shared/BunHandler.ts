@@ -2,10 +2,10 @@ import type { CspFileContructor } from "./CspFile";
 import type { HasherContructor } from "./Hasher";
 import { InlineScriptHandler } from "./InlineScriptHandler";
 import { InlineStyleHandler } from "./InlineStyleHandler";
+import type { Config } from "./internal";
 import { MetaHandler } from "./MetaHandler";
 import { ScriptHandler } from "./ScriptHandler";
 import { StyleHandler } from "./StyleHandler";
-import type { Config } from "./internal";
 import type { CspPolicy, HashAlgorithm } from "./types";
 import { buildCsp, resolvePath } from "./utils";
 

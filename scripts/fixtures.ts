@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { $ } from "bun";
-import { type InlineConfig, type UserConfig, build, loadConfigFromFile, mergeConfig } from "vite";
+import { build, type InlineConfig, loadConfigFromFile, mergeConfig, type UserConfig } from "vite";
 import { generateCspPlugin } from "../packages/vite-bun/src";
 
 export type Target = "bun-cli" | "bun-vite";
