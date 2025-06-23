@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { readdir, stat } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { Target } from "../scripts/fixtures";
 

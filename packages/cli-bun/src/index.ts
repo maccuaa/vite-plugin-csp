@@ -3,7 +3,9 @@
 import { join, resolve } from "node:path";
 import { handler } from "shared/BunHandler";
 import type { Config } from "shared/internal";
+
 export type { CspPluginConfiguration } from "shared/types";
+
 import { pathToFileURL } from "bun";
 import { BunFile } from "shared/BunFile";
 import { BunHash } from "shared/BunHash";
