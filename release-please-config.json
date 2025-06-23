@@ -1,6 +1,6 @@
 {
   "changelog-path": "CHANGELOG.md",
-  "include-component-in-tag": false,
+  "include-component-in-tag": true,
   "packages": {
     "packages/cli-bun": {
       "release-type": "node",
