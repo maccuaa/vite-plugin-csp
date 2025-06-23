@@ -36,10 +36,6 @@ for (const target of ["vite-bun", "cli-bun"]) {
     plugins: [dts({ resolve: ["shared/types"] })],
   });
 
-  console.info("🎨", "Copying types...");
-
-  await $`cp ../shared/types.d.ts ./dist`;
-
   console.info("📦", "Running publint...");
 
   await $`bunx publint`;
