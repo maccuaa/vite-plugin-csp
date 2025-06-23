@@ -1,7 +1,7 @@
-import type { InlineScriptHandler } from "./InlineScriptHandler.js";
-import type { InlineStyleHandler } from "./InlineStyleHandler.js";
-import type { ScriptHandler } from "./ScriptHandler.js";
-import type { StyleHandler } from "./StyleHandler.js";
+import type { InlineScriptHandler } from "./InlineScriptHandler";
+import type { InlineStyleHandler } from "./InlineStyleHandler";
+import type { ScriptHandler } from "./ScriptHandler";
+import type { StyleHandler } from "./StyleHandler";
 
 //
 // Internal Types

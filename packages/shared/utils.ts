@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { join } from "node:path";
-import type { Config, Handlers } from "./internal.js";
-import type { CspPolicy } from "./types.js";
+import type { Config, Handlers } from "./internal";
+import type { CspPolicy } from "./types";
 
 const GOOGLE_FONTS_URL = "fonts.gstatic.com";
 

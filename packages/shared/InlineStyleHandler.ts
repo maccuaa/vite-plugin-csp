@@ -1,5 +1,5 @@
-import { BaseHandler } from "./BaseHandler.js";
-import type { MyHTMLRewriterTypes } from "./internal.js";
+import { BaseHandler } from "./BaseHandler";
+import type { MyHTMLRewriterTypes } from "./internal";
 
 export class InlineStyleHandler extends BaseHandler implements MyHTMLRewriterTypes.HTMLRewriterElementContentHandlers {
   private textContent = "";

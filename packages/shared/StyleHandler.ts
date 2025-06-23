@@ -1,5 +1,5 @@
-import { BaseHandler } from "./BaseHandler.js";
-import type { MyHTMLRewriterTypes } from "./internal.js";
+import { BaseHandler } from "./BaseHandler";
+import type { MyHTMLRewriterTypes } from "./internal";
 
 // You use the Subresource Integrity feature by
 // specifying a base64-encoded cryptographic hash

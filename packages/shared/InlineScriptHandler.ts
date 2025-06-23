@@ -1,5 +1,5 @@
-import { BaseHandler } from "./BaseHandler.js";
-import type { MyHTMLRewriterTypes } from "./internal.js";
+import { BaseHandler } from "./BaseHandler";
+import type { MyHTMLRewriterTypes } from "./internal";
 
 export const ID_ATT_NAME = "x-vite-plugin-csp";
 

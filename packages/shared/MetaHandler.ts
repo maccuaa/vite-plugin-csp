@@ -1,4 +1,4 @@
-import type { MyHTMLRewriterTypes } from "./internal.js";
+import type { MyHTMLRewriterTypes } from "./internal";
 
 const httpEquivAttribute = "http-equiv";
 const contentAttribute = "content";

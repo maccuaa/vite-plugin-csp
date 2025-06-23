@@ -1,8 +1,8 @@
-import type { CspFileContructor } from "./CspFile.js";
-import type { Hasher, HasherContructor } from "./Hasher.js";
-import type { Config } from "./internal.js";
-import type { HashAlgorithm } from "./types.js";
-import { resolvePath } from "./utils.js";
+import type { CspFileContructor } from "./CspFile";
+import type { Hasher, HasherContructor } from "./Hasher";
+import type { Config } from "./internal";
+import type { HashAlgorithm } from "./types";
+import { resolvePath } from "./utils";
 
 export class BaseHandler {
   private algorithm: HashAlgorithm;

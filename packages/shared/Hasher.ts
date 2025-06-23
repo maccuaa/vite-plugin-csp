@@ -1,4 +1,4 @@
-import type { HashAlgorithm } from "./types.js";
+import type { HashAlgorithm } from "./types";
 
 export abstract class Hasher {
   abstract update: (input: string) => void;
