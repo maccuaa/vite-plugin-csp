@@ -20,7 +20,25 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: bun i --frozen-lockfile
       - run: bun run build
-      - name: Publish to NPM
+
+      #
+      # Publish Packages
+      #
+
+      - name: Publish vite-plugin-bun-csp
+        if: startsWith(github.ref, 'refs/tags/vite-plugin-bun-csp-')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public ./packages/vite-bun
+
+      - name: Publish csp-bun-cli
+        if: startsWith(github.ref, 'refs/tags/csp-bun-cli-')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public ./packages/cli-bun
+
+      - name: Publish all packages
+        if: startsWith(github.ref, 'refs/tags/v')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
