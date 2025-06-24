@@ -16,6 +16,9 @@ bun add -D csp-bun-cli
 
 # Global install
 bun add -g csp-bun-cli
+
+# Use without installing
+bunx csp-bun-cli --help
 ```
 
 ## Basic Usage
@@ -48,7 +51,7 @@ export default {
 You can also explicitly specify a config file to use with the --config CLI option (resolved relative to `cwd`):
 
 ```bash
-csp -d ./path/to/index.html --config ./my-config.ts
+csp -d path/to/dist/dir --config ./my-config.ts
 ```
 
 ## Usage
@@ -56,11 +59,11 @@ csp -d ./path/to/index.html --config ./my-config.ts
 ```bash
 
 # Basic Usage
-csp -d path/to/index.html
+csp -d path/to/dist/dir
 
 # Custom Config
-csp -d path/to/index.html --config path/to/config.ts
+csp -d path/to/dist/dir --config path/to/config.ts
 
 # Base Path
-csp -d path/to/index.html --base myapp
+csp -d path/to/dist/dir --base myapp
 ```
