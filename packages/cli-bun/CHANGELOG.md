@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.0...csp-bun-cli-v2.0.1) (2025-06-27)
+
+
+### Bug Fixes
+
+* fix README ([c615218](https://github.com/maccuaa/vite-plugin-csp/commit/c61521860ecb791425c75da6ea6799d5b5c6230d))
+
 ## [2.0.0](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v1.1.0...csp-bun-cli-v2.0.0) (2025-06-23)
 
 
