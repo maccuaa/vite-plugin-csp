@@ -1,4 +1,4 @@
 {
-  "packages/cli-bun": "2.0.0",
-  "packages/vite-bun": "2.0.0"
+  "packages/cli-bun": "2.0.1",
+  "packages/vite-bun": "2.1.0"
 }
