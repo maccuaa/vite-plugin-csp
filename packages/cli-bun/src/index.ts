@@ -14,7 +14,7 @@ import { DEFAULT_CSP_POLICY } from "shared/utils";
 import { name, version } from "../package.json";
 
 interface ProgramOptions {
-  dir: string;
+  dir?: string;
   config?: string;
   base?: string;
 }
@@ -26,7 +26,7 @@ A CLI that generates and injects a Content Security Policy (CSP) for your SPA ap
 
 Options:
   -V, --version          output the version number
-  -d, --dir <directory>  Directory with the HTML file to process. Mandatory.
+  -d, --dir <directory>  Directory with the HTML file to process. (default: ".")
   -c, --config <file>    Path to CSP config file. (default: "csp.config.ts")
   -b, --base <path>      Base public path of your SPA. (default: "")
   -h, --help             display help for command
@@ -61,10 +61,22 @@ const fatalError = (message: string): never => {
 const parseAgs = (): Required<ProgramOptions> => {
   const config: Required<ProgramOptions> = {
     base: "",
-    dir: "",
+    dir: process.cwd(), // Default to current working directory
     config: join(process.cwd(), "csp.config.ts"), // Default config file path
   };
 
+  // Parse command line arguments into an array of strings
+  // This will handle both key-value pairs (e.g., --key=value) and standalone arguments (e.g., --key value)
+  // It will also filter out any empty strings
+  // and trim whitespace from values.
+  // Example: ["-d", "/path/to/dir", "-c", "custom.config.ts", "--base", "/public", "-h"]
+  // will be parsed into: ["-d", "/path/to/dir", "-c", "custom.config.ts", "--base", "/public", "-h"]
+  // and will be processed accordingly.
+  // This allows for flexible argument passing and ensures that all arguments are captured correctly.
+  // Note: Bun.argv is an array of strings representing the command line arguments passed to the script.
+  // The first two elements are the node executable and the script path, so we slice
+  // from index 2 to get only the user-defined arguments.
+  // This is similar to how many CLI tools handle arguments.
   const args = Bun.argv
     .slice(2)
     .reduce((acc, arg) => {
@@ -129,11 +141,6 @@ const parseAgs = (): Required<ProgramOptions> => {
       }
     } // end switch
   } // end for loop
-
-  // Process required arguments
-  if (!config.dir) {
-    fatalError("Directory argument is required. Use -d or --dir to specify the directory.");
-  }
 
   return config;
 };

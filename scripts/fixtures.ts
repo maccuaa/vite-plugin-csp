@@ -69,13 +69,13 @@ const runCliPlugin = async (entryPath: string, fixture: string, target: Target) 
 
   const configFilePath = join(entryPath, "csp.config.ts");
 
-  const exists = await Bun.file(configFilePath).exists();
+  const configFileExists = await Bun.file(configFilePath).exists();
 
   // Bun shell command escaping is a little funky
 
   if (fixture === "base-path") {
     await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder} --base base_path`;
-  } else if (exists) {
+  } else if (configFileExists) {
     await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder} --config ${configFilePath}`;
   } else {
     await $`bun run ./packages/cli-bun/src/index.ts --dir ${outFolder}`;
