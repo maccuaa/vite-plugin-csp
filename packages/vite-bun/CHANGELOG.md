@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.0.0...vite-plugin-bun-csp-v2.1.0) (2025-07-08)
+
+
+### Features
+
+* **deps:** add support for vite v7 ([#88](https://github.com/maccuaa/vite-plugin-csp/issues/88)) ([db3afa2](https://github.com/maccuaa/vite-plugin-csp/commit/db3afa20110023592c5780fbf42f11cf6ab93753))
+
 ## [2.0.0](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v1.0.1...vite-plugin-bun-csp-v2.0.0) (2025-06-23)
 
 
