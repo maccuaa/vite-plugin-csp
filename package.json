@@ -20,7 +20,7 @@
     "@playwright/test": "1.54.1",
     "bun-dts": "^0.1.70",
     "publint": "0.3.12",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite": "7.0.6"
   }
 }
