@@ -11,7 +11,11 @@ export const buildCsp = (policy: CspPolicy, handlers: Handlers): string => {
   // Add SRI hashes to the CSP
   addToPolicy(policy, "script-src", scriptHandler.hashValues);
   addToPolicy(policy, "script-src", inlineScriptHandler.hashValues);
-  addToPolicy(policy, "style-src", inlineStyleHandler.hashValues);
+
+  // If 'unsafe-inline' is already present, don't add any hashes - https://github.com/maccuaa/vite-plugin-csp/issues/119
+  if (!policy["style-src"]?.includes("'unsafe-inline'")) {
+    addToPolicy(policy, "style-src", inlineStyleHandler.hashValues);
+  }
 
   if (scriptHandler.hashValues || inlineScriptHandler.hashValues) {
     addToPolicy(policy, "script-src", "'strict-dynamic'");
