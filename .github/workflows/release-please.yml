@@ -23,7 +23,8 @@ jobs:
             --token ${{ secrets.RELEASE_PLEASE_TOKEN }} \
             --repo-url ${{ github.repository }} \
             --config-file release-please-config.json \
-            --manifest-file .release-please-manifest.json
+            --manifest-file .release-please-manifest.json \
+            --debug
 
       - name: Create Pull Requests
         id: release-pr
@@ -32,4 +33,5 @@ jobs:
             --token ${{ secrets.RELEASE_PLEASE_TOKEN }} \
             --repo-url ${{ github.repository }} \
             --config-file release-please-config.json \
-            --manifest-file .release-please-manifest.json
+            --manifest-file .release-please-manifest.json \
+            --debug
