@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.1...csp-bun-cli-v2.0.2) (2025-09-20)
+
+
+### Bug Fixes
+
+* conditionally add style-src hashes to CSP if 'unsafe-inline' is absent. fixes [#119](https://github.com/maccuaa/vite-plugin-csp/issues/119) ([f644678](https://github.com/maccuaa/vite-plugin-csp/commit/f6446780539f42e5775818d39e925ee85bafb06f))
+
 ## [2.0.1](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.0...csp-bun-cli-v2.0.1) (2025-07-08)
 
 
