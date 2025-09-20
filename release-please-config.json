@@ -8,7 +8,7 @@
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
       "prerelease": false,
-      "additionalPaths": ["packages/shared"]
+      "additional-paths": ["packages/shared"]
     },
     "packages/vite-bun": {
       "release-type": "node",
@@ -16,7 +16,7 @@
       "bump-patch-for-minor-pre-major": false,
       "draft": false,
       "prerelease": false,
-      "additionalPaths": ["packages/shared"]
+      "additional-paths": ["packages/shared"]
     }
   },
   "$schema": "https://raw.githubusercontent.com/stan-stately/release-please/additional-package-paths/schemas/config.json"
