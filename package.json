@@ -19,7 +19,7 @@
     "@biomejs/biome": "2.2.4",
     "@playwright/test": "1.55.0",
     "bun-dts": "^0.1.70",
-    "publint": "0.3.12",
+    "publint": "0.3.13",
     "typescript": "5.9.2",
     "vite": "7.1.5"
   }
