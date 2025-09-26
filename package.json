@@ -17,7 +17,7 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
     "@biomejs/biome": "2.2.4",
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.55.1",
     "bun-dts": "^0.1.70",
     "publint": "0.3.13",
     "typescript": "5.9.2",
