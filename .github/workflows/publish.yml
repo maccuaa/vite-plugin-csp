@@ -1,38 +1,27 @@
 name: Publish
+
 on:
-  release:
-    types:
-      - published
-  workflow_dispatch: {}
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   build:
-    name: Publish
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       - uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
-        with:
-          node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org"
       - run: bun i --frozen-lockfile
       - run: bun run build
 
-      #
-      # Publish Packages
-      #
-
       - name: Publish vite-plugin-bun-csp
         if: startsWith(github.ref, 'refs/tags/vite-plugin-bun-csp-')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --provenance --access public ./packages/vite-bun
+        run: npm publish --provenance --access public --cwd ./packages/vite-bun
 
       - name: Publish csp-bun-cli
         if: startsWith(github.ref, 'refs/tags/csp-bun-cli-')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --provenance --access public ./packages/cli-bun
+        run: npm publish --provenance --access public --cwd ./packages/cli-bun
