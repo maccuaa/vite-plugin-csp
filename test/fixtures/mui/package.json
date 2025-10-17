@@ -1,6 +1,7 @@
 {
   "name": "mui-example",
   "type": "module",
+  "private": true,
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -11,6 +12,7 @@
   "devDependencies": {
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite-plugin-bun-csp": "workspace:*"
   }
 }

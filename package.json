@@ -18,7 +18,8 @@
     "@arethetypeswrong/cli": "0.18.2",
     "@biomejs/biome": "2.2.5",
     "@playwright/test": "1.56.0",
-    "bun-dts": "^0.1.70",
+    "@tsconfig/bun": "^1.0.7",
+    "bun-dts": "0.1.70",
     "publint": "0.3.14",
     "typescript": "5.9.3",
     "vite": "7.1.9"

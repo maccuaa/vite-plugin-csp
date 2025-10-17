@@ -7,7 +7,8 @@
         "@arethetypeswrong/cli": "0.18.2",
         "@biomejs/biome": "2.2.5",
         "@playwright/test": "1.56.0",
-        "bun-dts": "^0.1.70",
+        "@tsconfig/bun": "^1.0.7",
+        "bun-dts": "0.1.70",
         "publint": "0.3.14",
         "typescript": "5.9.3",
         "vite": "7.1.9",
@@ -39,6 +40,12 @@
         "vite": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0",
       },
     },
+    "test/fixtures/base-path": {
+      "name": "base-path-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
     "test/fixtures/mui": {
       "name": "mui-example",
       "dependencies": {
@@ -52,6 +59,37 @@
         "@types/react": "^19.0.7",
         "@types/react-dom": "^19.0.3",
         "@vitejs/plugin-react": "^4.3.4",
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
+    "test/fixtures/policy": {
+      "name": "policy-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
+    "test/fixtures/sha256": {
+      "name": "sha256-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
+    "test/fixtures/sha384": {
+      "name": "sha384-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
+    "test/fixtures/sha512": {
+      "name": "sha512-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
+      },
+    },
+    "test/fixtures/unsafe-style": {
+      "name": "unsafe-style-fixture",
+      "devDependencies": {
+        "vite-plugin-bun-csp": "workspace:*",
       },
     },
   },
@@ -376,6 +414,8 @@
 
     "babel-plugin-macros": ["babel-plugin-macros@3.1.0", "", { "dependencies": { "@babel/runtime": "^7.12.5", "cosmiconfig": "^7.0.0", "resolve": "^1.19.0" } }, "sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg=="],
 
+    "base-path-fixture": ["base-path-fixture@workspace:test/fixtures/base-path"],
+
     "baseline-browser-mapping": ["baseline-browser-mapping@2.8.17", "", { "bin": { "baseline-browser-mapping": "dist/cli.js" } }, "sha512-j5zJcx6golJYTG6c05LUZ3Z8Gi+M62zRT/ycz4Xq4iCOdpcxwg7ngEYD4KA0eWZC7U17qh/Smq8bYbACJ0ipBA=="],
 
     "browserslist": ["browserslist@4.26.3", "", { "dependencies": { "baseline-browser-mapping": "^2.8.9", "caniuse-lite": "^1.0.30001746", "electron-to-chromium": "^1.5.227", "node-releases": "^2.0.21", "update-browserslist-db": "^1.1.3" }, "bin": { "browserslist": "cli.js" } }, "sha512-lAUU+02RFBuCKQPj/P6NgjlbCnLBMp4UtgTx7vNHd3XSIJF87s9a5rA3aH2yw3GS9DqZAUbOtZdCCiZeVRqt0w=="],
@@ -528,6 +568,8 @@
 
     "playwright-core": ["playwright-core@1.56.0", "", { "bin": { "playwright-core": "cli.js" } }, "sha512-1SXl7pMfemAMSDn5rkPeZljxOCYAmQnYLBTExuh6E8USHXGSX3dx6lYZN/xPpTz1vimXmPA9CDnILvmJaB8aSQ=="],
 
+    "policy-fixture": ["policy-fixture@workspace:test/fixtures/policy"],
+
     "postcss": ["postcss@8.5.6", "", { "dependencies": { "nanoid": "^3.3.11", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg=="],
 
     "prop-types": ["prop-types@15.8.1", "", { "dependencies": { "loose-envify": "^1.4.0", "object-assign": "^4.1.1", "react-is": "^16.13.1" } }, "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="],
@@ -557,6 +599,12 @@
     "scheduler": ["scheduler@0.27.0", "", {}, "sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q=="],
 
     "semver": ["semver@7.7.3", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q=="],
+
+    "sha256-fixture": ["sha256-fixture@workspace:test/fixtures/sha256"],
+
+    "sha384-fixture": ["sha384-fixture@workspace:test/fixtures/sha384"],
+
+    "sha512-fixture": ["sha512-fixture@workspace:test/fixtures/sha512"],
 
     "shared": ["shared@workspace:packages/shared"],
 
@@ -597,6 +645,8 @@
     "undici-types": ["undici-types@7.14.0", "", {}, "sha512-QQiYxHuyZ9gQUIrmPo3IA+hUl4KYk8uSA7cHrcKd/l3p1OTpZcM0Tbp9x7FAtXdAYhlasd60ncPpgu6ihG6TOA=="],
 
     "unicode-emoji-modifier-base": ["unicode-emoji-modifier-base@1.0.0", "", {}, "sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g=="],
+
+    "unsafe-style-fixture": ["unsafe-style-fixture@workspace:test/fixtures/unsafe-style"],
 
     "update-browserslist-db": ["update-browserslist-db@1.1.3", "", { "dependencies": { "escalade": "^3.2.0", "picocolors": "^1.1.1" }, "peerDependencies": { "browserslist": ">= 4.21.0" }, "bin": { "update-browserslist-db": "cli.js" } }, "sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw=="],
 

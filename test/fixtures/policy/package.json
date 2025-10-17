@@ -1,0 +1,8 @@
+{
+  "name": "policy-fixture",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "vite-plugin-bun-csp": "workspace:*"
+  }
+}
