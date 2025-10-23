@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-bun-csp",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A Vite plugin that generates and injects a Content Security Policy (CSP) for your SPA application.",
   "author": "Andrew MacCuaig <andrewmaccuaig@gmail.com>",
   "license": "MIT",
