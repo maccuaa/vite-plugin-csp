@@ -8,7 +8,7 @@ if (Bun.argv.length < 4) {
 
 const baseDir = resolve(Bun.argv[2] ?? "");
 const rawPort = Bun.argv[3];
-const port = Number.parseInt(rawPort ?? "3000");
+const port = Number.parseInt(rawPort ?? "3000", 10);
 
 if (Number.isNaN(port)) {
   console.info("Invalid port", rawPort);
