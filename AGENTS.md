@@ -19,7 +19,7 @@ This is a monorepo containing packages for adding Content Security Policy (CSP) 
 - **Language**: TypeScript
 - **Testing**: Bun test runner + Playwright for E2E tests
 - **Linting**: Biome
-- **Package Manager**: Bun (uses `bun.lock`)
+- **Package Manager**: Bun (uses `bun.lock` and workspace catalogs)
 
 ## Project Structure
 
@@ -178,6 +178,55 @@ Automatically detects and adds appropriate CSP directives for Google Fonts.
 - **Linter**: Biome (configured in `biome.json`)
 - **Type Checking**: TypeScript 5.9+
 - **Package Validation**: publint and @arethetypeswrong/cli
+
+## Dependency Management
+
+This project uses Bun's **workspace catalogs** to centralize dependency versions:
+
+- **Catalog dependencies**: Common dependencies like `typescript`, `vite`, `@tsconfig/bun`, and `@types/bun` are defined once in the root `package.json` catalog
+- **Usage**: All workspace packages reference catalog versions using the `"catalog:"` protocol
+- **Benefits**: Single source of truth for versions, easier updates across all packages
+- **Updating versions**: To update a dependency, modify the version in the root `package.json` catalog and run `bun install`
+
+**Example from root package.json:**
+
+```json
+"workspaces": {
+  "packages": ["packages/*", "test/fixtures/*"],
+  "catalog": {
+    "@tsconfig/bun": "^1.0.7",
+    "@types/bun": "^1.2.4",
+    "typescript": "5.9.3",
+    "vite": "7.1.12"
+  }
+}
+```
+
+**Example usage in package:**
+
+```json
+"devDependencies": {
+  "@tsconfig/bun": "catalog:",
+  "@types/bun": "catalog:",
+  "typescript": "catalog:",
+  "vite": "catalog:"
+}
+```
+
+## Publishing
+
+When publishing packages to npm, the workflow uses a two-step process:
+
+1. **`bun pm pack`** - Creates a tarball with resolved catalog dependencies (replaces `"catalog:"` references with actual version numbers)
+2. **`npm publish`** - Publishes the tarball with OIDC trusted publishing support (provenance attestations are automatic)
+
+**Why this approach?**
+
+- `bun pm pack` properly resolves catalog references to concrete versions in the published package
+- `npm publish` provides OIDC trusted publishing support which `bun publish` doesn't currently support
+- This maintains security (provenance attestations) while properly handling catalog references
+
+The publish workflow is triggered by pushing tags matching the pattern `vite-plugin-bun-csp-*` or `csp-bun-cli-*`.
 
 ## Useful References
 

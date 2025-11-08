@@ -20,8 +20,16 @@ jobs:
 
       - name: Publish vite-plugin-bun-csp
         if: startsWith(github.ref, 'refs/tags/vite-plugin-bun-csp-')
-        run: npm publish --provenance --access public --cwd ./packages/vite-bun
+        run: |
+          cd ./packages/vite-bun
+          bun pm pack --quiet
+          npm publish --provenance --access public *.tgz
+          rm *.tgz
 
       - name: Publish csp-bun-cli
         if: startsWith(github.ref, 'refs/tags/csp-bun-cli-')
-        run: npm publish --provenance --access public --cwd ./packages/cli-bun
+        run: |
+          cd ./packages/cli-bun
+          bun pm pack --quiet
+          npm publish --provenance --access public *.tgz
+          rm *.tgz
