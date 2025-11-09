@@ -12,7 +12,7 @@
         "bun-dts": "0.1.70",
         "publint": "0.3.15",
         "typescript": "5.9.3",
-        "vite": "7.2.0",
+        "vite": "7.2.1",
       },
     },
     "packages/cli-bun": {
@@ -661,7 +661,7 @@
 
     "validate-npm-package-name": ["validate-npm-package-name@5.0.1", "", {}, "sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ=="],
 
-    "vite": ["vite@7.2.0", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.5.0", "picomatch": "^4.0.3", "postcss": "^8.5.6", "rollup": "^4.43.0", "tinyglobby": "^0.2.15" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^20.19.0 || >=22.12.0", "jiti": ">=1.21.0", "less": "^4.0.0", "lightningcss": "^1.21.0", "sass": "^1.70.0", "sass-embedded": "^1.70.0", "stylus": ">=0.54.8", "sugarss": "^5.0.0", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "jiti", "less", "lightningcss", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": { "vite": "bin/vite.js" } }, "sha512-C/Naxf8H0pBx1PA4BdpT+c/5wdqI9ILMdwjSMILw7tVIh3JsxzZqdeTLmmdaoh5MYUEOyBnM9K3o0DzoZ/fe+w=="],
+    "vite": ["vite@7.2.1", "", { "dependencies": { "esbuild": "^0.25.0", "fdir": "^6.5.0", "picomatch": "^4.0.3", "postcss": "^8.5.6", "rollup": "^4.43.0", "tinyglobby": "^0.2.15" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^20.19.0 || >=22.12.0", "jiti": ">=1.21.0", "less": "^4.0.0", "lightningcss": "^1.21.0", "sass": "^1.70.0", "sass-embedded": "^1.70.0", "stylus": ">=0.54.8", "sugarss": "^5.0.0", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "jiti", "less", "lightningcss", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": { "vite": "bin/vite.js" } }, "sha512-qTl3VF7BvOupTR85Zc561sPEgxyUSNSvTQ9fit7DEMP7yPgvvIGm5Zfa1dOM+kOwWGNviK9uFM9ra77+OjK7lQ=="],
 
     "vite-plugin-bun-csp": ["vite-plugin-bun-csp@workspace:packages/vite-bun"],
 
