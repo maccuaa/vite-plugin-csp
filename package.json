@@ -28,7 +28,7 @@
     "@playwright/test": "1.56.1",
     "@tsconfig/bun": "1.0.10",
     "bun-dts": "0.1.70",
-    "publint": "0.3.16",
+    "publint": "0.3.17",
     "typescript": "5.9.3",
     "vite": "7.3.1"
   }
