@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.2...csp-bun-cli-v2.0.3) (2026-02-16)
+
+
+### Bug Fixes
+
+* add compilerOptions to tsconfig for shared paths in cli-bun and vite-bun ([53784cd](https://github.com/maccuaa/vite-plugin-csp/commit/53784cdf04f0d5482ee95e7246ea57229b4cce08))
+
 ## [2.0.2](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.1...csp-bun-cli-v2.0.2) (2025-09-20)
 
 
