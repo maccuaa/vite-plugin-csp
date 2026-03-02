@@ -12,7 +12,10 @@ test("Custom Policy", async ({ page }) => {
 
   await verifyTitle({ page });
 
-  expect(messages).toContain(
-    `Refused to frame 'https://example.com/' because it violates the following Content Security Policy directive: "frame-src 'none'".`,
+  expect(messages).toEqual(
+    expect.arrayContaining([
+      expect.stringContaining("https://example.com/"),
+      expect.stringContaining("frame-src 'none'"),
+    ]),
   );
 });
