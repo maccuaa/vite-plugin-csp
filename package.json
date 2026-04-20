@@ -29,7 +29,7 @@
     "@tsconfig/bun": "1.0.10",
     "bun-dts": "0.1.70",
     "publint": "0.3.18",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "vite": "8.0.8"
   }
 }
