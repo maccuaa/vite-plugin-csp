@@ -14,7 +14,7 @@ export class MetaHandler implements MyHTMLRewriterTypes.HTMLRewriterElementConte
     const httpEquiv = element.getAttribute(httpEquivAttribute);
 
     // Check if we're processing the Content Security Policy meta tag
-    if (!httpEquiv || httpEquiv.toLowerCase() !== "content-security-policy") {
+    if (httpEquiv?.toLowerCase() !== "content-security-policy") {
       return;
     }
 

@@ -13,9 +13,7 @@
   },
   "linter": {
     "rules": {
-      "a11y": {
-        "useGenericFontNames": "off"
-      }
+      "a11y": "off"
     }
   },
   "assist": {
