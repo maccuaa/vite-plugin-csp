@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.2](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.1.1...vite-plugin-bun-csp-v2.1.2) (2026-06-29)
+
+
+### Bug Fixes
+
+* add compilerOptions to tsconfig for shared paths in cli-bun and vite-bun ([53784cd](https://github.com/maccuaa/vite-plugin-csp/commit/53784cdf04f0d5482ee95e7246ea57229b4cce08))
+* disable a11y rules and improve CSP meta tag check ([9d935e5](https://github.com/maccuaa/vite-plugin-csp/commit/9d935e54eba0afa2ea15b12a781016793ba654f0))
+
 ## [2.1.1](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.1.0...vite-plugin-bun-csp-v2.1.1) (2025-09-20)
 
 
