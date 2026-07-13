@@ -23,7 +23,7 @@
     "e2e": "bunx playwright test"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.18.4",
+    "@arethetypeswrong/cli": "0.18.5",
     "@biomejs/biome": "2.5.3",
     "@playwright/test": "1.61.1",
     "@tsconfig/bun": "1.0.10",
