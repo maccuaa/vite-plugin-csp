@@ -26,7 +26,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@biomejs/biome": "2.5.8",
     "@playwright/test": "1.62.1",
-    "@tsconfig/bun": "1.0.10",
+    "@tsconfig/bun": "1.0.11",
     "bun-dts": "0.1.70",
     "publint": "0.3.23",
     "typescript": "7.0.2",
