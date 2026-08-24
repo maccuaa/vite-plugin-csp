@@ -30,9 +30,9 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): PluginO
     },
     closeBundle: {
       order: "post",
-      handler: () => {
+      handler: async () => {
         const policy = { ...startingPolicy };
-        handler({ algorithm, config, policy, BunFile, BunHash });
+        await handler({ algorithm, config, policy, BunFile, BunHash });
       },
     },
   };
