@@ -43,6 +43,14 @@ export class BaseHandler {
   protected getFileContents = async (assetPath: string): Promise<string> => {
     if (assetPath.startsWith("https://")) {
       const response = await fetch(assetPath);
+
+      if (!response.ok) {
+        console.warn(
+          `[vite-plugin-csp] Failed to fetch ${assetPath} (status ${response.status}); skipping integrity hash for this asset.`,
+        );
+        return "";
+      }
+
       return await response.text();
     }
 
