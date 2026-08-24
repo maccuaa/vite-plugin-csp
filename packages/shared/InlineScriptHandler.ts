@@ -1,8 +1,6 @@
 import { BaseHandler } from "./BaseHandler";
 import type { MyHTMLRewriterTypes } from "./internal";
 
-export const ID_ATT_NAME = "x-vite-plugin-csp";
-
 export class InlineScriptHandler extends BaseHandler implements MyHTMLRewriterTypes.HTMLRewriterElementContentHandlers {
   private textContent = "";
 
