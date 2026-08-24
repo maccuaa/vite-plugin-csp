@@ -67,3 +67,7 @@ csp -d path/to/dist/dir --config path/to/config.ts
 # Base Path
 csp -d path/to/dist/dir --base myapp
 ```
+
+## Multi-page apps
+
+`csp-bun-cli` automatically discovers and processes every `.html` file under the target directory. Point `--dir` at your build output root and all pages — including those in subdirectories — will receive their own independently-computed CSP and SRI `integrity` attributes.
