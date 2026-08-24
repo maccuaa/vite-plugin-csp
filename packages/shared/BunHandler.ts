@@ -29,18 +29,24 @@ export const handler = async ({ algorithm, config, BunHash, BunFile, policy }: H
   const styleHandler = new StyleHandler(algorithm, config, BunHash, BunFile);
   const inlineStyleHandler = new InlineStyleHandler(algorithm, config, BunHash, BunFile);
 
-  const newHtml = new HTMLRewriter()
+  const newHtmlResponse = new HTMLRewriter()
     .on("script", scriptHandler)
     .on("script", inlineScriptHandler)
     .on("link", styleHandler)
     .on("style", inlineStyleHandler)
-    .transform(originalHtml);
+    .transform(new Response(originalHtml));
+
+  // Content handlers above perform async file reads / fetches, so we must
+  // pass a Response and await its body instead of transforming a string
+  // synchronously. As of Bun 1.4, HTMLRewriter throws if a handler's Promise
+  // doesn't resolve within a microtask when transforming a string directly.
+  const newHtml = await newHtmlResponse.text();
 
   const csp = buildCsp(policy, { scriptHandler, inlineScriptHandler, styleHandler, inlineStyleHandler });
 
   const metaHandler = new MetaHandler(csp);
 
-  const finalHtml = new HTMLRewriter().on("meta", metaHandler).transform(newHtml);
+  const finalHtml = await new HTMLRewriter().on("meta", metaHandler).transform(new Response(newHtml)).text();
 
   await htmlFile.write(finalHtml);
 };
