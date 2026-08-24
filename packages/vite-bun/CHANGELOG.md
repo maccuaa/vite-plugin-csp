@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.3](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.1.2...vite-plugin-bun-csp-v2.1.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* update HTMLRewriter usage to handle async responses correctly caused by Bun 1.4 upgrade ([62e174d](https://github.com/maccuaa/vite-plugin-csp/commit/62e174d72feef1164ae1a597e04ca2706e1c74b7))
+
 ## [2.1.2](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.1.1...vite-plugin-bun-csp-v2.1.2) (2026-07-06)
 
 
