@@ -44,6 +44,7 @@ The packages automatically:
 2. Detect and handle Google Fonts in HTML
 3. Insert computed hashes into CSP meta tags
 4. Support configurable hash algorithms (SHA-256, SHA-384, SHA-512)
+5. Process all HTML files in a build output — multi-page apps (MPA) are fully supported; every discovered page gets its own independently-computed CSP
 
 ### Key Components (packages/shared/)
 

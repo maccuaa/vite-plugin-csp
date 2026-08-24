@@ -1,3 +1,4 @@
+import { join } from "node:path";
 import { BunFile } from "shared/BunFile";
 import { handler } from "shared/BunHandler";
 import { BunHash } from "shared/BunHash";
@@ -28,11 +29,18 @@ export const generateCspPlugin = (options: CspPluginConfiguration = {}): PluginO
         root,
       };
     },
-    closeBundle: {
+    writeBundle: {
       order: "post",
-      handler: () => {
+      handler: async (options, bundle) => {
+        const outDir = options.dir;
+
+        const htmlPaths = Object.values(bundle)
+          .filter((entry) => entry.fileName.endsWith(".html"))
+          .map((entry) => join(outDir ?? config.root, entry.fileName));
+
         const policy = { ...startingPolicy };
-        handler({ algorithm, config, policy, BunFile, BunHash });
+
+        await handler({ algorithm, config, policy, BunFile, BunHash, htmlPaths });
       },
     },
   };

@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 
 import { join, resolve } from "node:path";
+import { Glob } from "bun";
 import { handler } from "shared/BunHandler";
 import type { Config } from "shared/internal";
 
@@ -157,4 +158,15 @@ const pluginConfig: Config = {
   root: dir,
 };
 
-await handler({ algorithm, config: pluginConfig, policy, BunFile, BunHash });
+const glob = new Glob("**/*.html");
+const htmlPaths: string[] = [];
+
+for await (const file of glob.scan({ cwd: pluginConfig.root })) {
+  htmlPaths.push(join(pluginConfig.root, file));
+}
+
+if (htmlPaths.length === 0) {
+  fatalError(`No HTML files found in ${pluginConfig.root}`);
+}
+
+await handler({ algorithm, config: pluginConfig, policy, BunFile, BunHash, htmlPaths });

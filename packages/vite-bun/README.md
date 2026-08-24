@@ -69,3 +69,7 @@ export default defineConfig({
   ],
 });
 ```
+
+## Multi-page apps
+
+`vite-plugin-bun-csp` supports Vite's [multi-page app](https://vite.dev/guide/build.html#multi-page-app) pattern out of the box. Every HTML file that Vite emits (via `build.rollupOptions.input`) is automatically discovered and processed — no additional configuration needed. Each page gets its own independently-computed CSP and SRI `integrity` attributes.

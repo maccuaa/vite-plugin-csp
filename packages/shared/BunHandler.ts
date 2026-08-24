@@ -15,11 +15,28 @@ interface HandlerArgs {
   policy: CspPolicy;
   BunHash: HasherContructor;
   BunFile: CspFileContructor;
+  /** Absolute paths of every HTML file to process. Defaults to a single `index.html` at the build root for backward compatibility. */
+  htmlPaths?: string[];
 }
 
-export const handler = async ({ algorithm, config, BunHash, BunFile, policy }: HandlerArgs) => {
-  const htmlPath = resolvePath("index.html", config);
+export const handler = async ({ algorithm, config, BunHash, BunFile, policy, htmlPaths }: HandlerArgs) => {
+  const paths = htmlPaths ?? [resolvePath("index.html", config)];
 
+  for (const htmlPath of paths) {
+    await processHtmlFile({ htmlPath, algorithm, config, policy: { ...policy }, BunHash, BunFile });
+  }
+};
+
+interface ProcessHtmlFileArgs {
+  htmlPath: string;
+  algorithm: HashAlgorithm;
+  config: Config;
+  policy: CspPolicy;
+  BunHash: HasherContructor;
+  BunFile: CspFileContructor;
+}
+
+const processHtmlFile = async ({ htmlPath, algorithm, config, policy, BunHash, BunFile }: ProcessHtmlFileArgs) => {
   const htmlFile = new BunFile(htmlPath);
 
   const originalHtml = await htmlFile.read();
@@ -36,10 +53,6 @@ export const handler = async ({ algorithm, config, BunHash, BunFile, policy }: H
     .on("style", inlineStyleHandler)
     .transform(new Response(originalHtml));
 
-  // Content handlers above perform async file reads / fetches, so we must
-  // pass a Response and await its body instead of transforming a string
-  // synchronously. As of Bun 1.4, HTMLRewriter throws if a handler's Promise
-  // doesn't resolve within a microtask when transforming a string directly.
   const newHtml = await newHtmlResponse.text();
 
   const csp = buildCsp(policy, { scriptHandler, inlineScriptHandler, styleHandler, inlineStyleHandler });

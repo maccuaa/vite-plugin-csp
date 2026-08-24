@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
+import { Glob } from "bun";
 import type { Target } from "../scripts/fixtures";
 
 const basePath = resolve(__dirname, "./fixtures");
@@ -9,15 +10,26 @@ const fixtures = await readdir(basePath);
 
 describe("vite-plugin-csp", () => {
   test.each(fixtures)("%s", async (fixture) => {
-    const vite = await readHtml(fixture, "bun-vite");
-    const cli = await readHtml(fixture, "bun-cli");
+    const vitePages = await findHtmlPages(fixture, "bun-vite");
+    const cliPages = await findHtmlPages(fixture, "bun-cli");
 
-    expect(vite).toEqual(cli);
+    expect(cliPages.map((p) => p.relativePath).sort()).toEqual(vitePages.map((p) => p.relativePath).sort());
+
+    for (const page of vitePages) {
+      const match = cliPages.find((p) => p.relativePath === page.relativePath);
+      expect(match?.contents).toEqual(page.contents);
+    }
   });
 });
 
-const readHtml = async (path: string, target: Target): Promise<string> => {
-  const htmlPath = resolve(basePath, path, "dist", target, "index.html");
+const findHtmlPages = async (fixture: string, target: Target) => {
+  const distDir = resolve(basePath, fixture, "dist", target);
+  const glob = new Glob("**/*.html");
+  const pages: { relativePath: string; contents: string }[] = [];
 
-  return await Bun.file(htmlPath).text();
+  for await (const file of glob.scan({ cwd: distDir })) {
+    pages.push({ relativePath: file, contents: await Bun.file(resolve(distDir, file)).text() });
+  }
+
+  return pages;
 };
