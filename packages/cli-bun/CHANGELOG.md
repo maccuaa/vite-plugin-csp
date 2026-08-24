@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.4...csp-bun-cli-v2.1.0) (2026-08-24)
+
+
+### Features
+
+* support multi-page apps in vite plugin and CLI ([88f2b53](https://github.com/maccuaa/vite-plugin-csp/commit/88f2b538e9d72250d7f5a2827c9147b63f949347))
+
+
+### Bug Fixes
+
+* add friendly error handling around CLI config loading and execution ([f586741](https://github.com/maccuaa/vite-plugin-csp/commit/f5867418be6bfbb412608616b6a49a0318780636))
+* dedupe stylesheet origins by URL origin instead of host ([32b6270](https://github.com/maccuaa/vite-plugin-csp/commit/32b62706a34cab2fb7b51f5c08f097963b484a02))
+* skip SRI hash for remote assets when the fetch response is not ok ([68223e6](https://github.com/maccuaa/vite-plugin-csp/commit/68223e6ba5075ec198f758c970f56c31e60da19f))
+
 ## [2.0.4](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.3...csp-bun-cli-v2.0.4) (2026-08-24)
 
 
