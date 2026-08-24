@@ -36,16 +36,29 @@ Options:
 const resolveConfig = async (configFilePath: string): Promise<CspPluginConfiguration> => {
   const exists = await Bun.file(configFilePath).exists();
 
-  if (exists) {
-    const imported = await import(pathToFileURL(configFilePath).href);
-
-    return imported?.default as CspPluginConfiguration;
+  if (!exists) {
+    return {
+      algorithm: "sha384",
+      policy: DEFAULT_CSP_POLICY,
+    };
   }
 
-  return {
-    algorithm: "sha384",
-    policy: DEFAULT_CSP_POLICY,
-  };
+  try {
+    const imported = await import(pathToFileURL(configFilePath).href);
+
+    if (!imported?.default) {
+      fatalError(`Config file ${configFilePath} does not have a default export.`);
+    }
+
+    return imported.default as CspPluginConfiguration;
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Config file")) {
+      throw error; // re-throw fatalError's own path if it somehow didn't exit
+    }
+    return fatalError(
+      `Failed to load config file ${configFilePath}: ${error instanceof Error ? error.message : error}`,
+    );
+  }
 };
 
 const infoLog = (message: string): void => {
@@ -169,4 +182,8 @@ if (htmlPaths.length === 0) {
   fatalError(`No HTML files found in ${pluginConfig.root}`);
 }
 
-await handler({ algorithm, config: pluginConfig, policy, BunFile, BunHash, htmlPaths });
+try {
+  await handler({ algorithm, config: pluginConfig, policy, BunFile, BunHash, htmlPaths });
+} catch (error) {
+  fatalError(`Failed to generate CSP: ${error instanceof Error ? error.message : error}`);
+}
