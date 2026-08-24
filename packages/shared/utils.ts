@@ -1,4 +1,3 @@
-import { randomBytes } from "node:crypto";
 import { join } from "node:path";
 import type { Config, Handlers } from "./internal";
 import type { CspPolicy } from "./types";
@@ -58,10 +57,6 @@ export const addToPolicy = (policy: CspPolicy, directive: keyof CspPolicy, hashV
 
 export const resolvePath = (filepath: string, { base, outDir, root }: Config) => {
   return join(root, outDir, filepath.replace(base, ""));
-};
-
-export const generateId = () => {
-  return randomBytes(16).toString("hex");
 };
 
 /**
