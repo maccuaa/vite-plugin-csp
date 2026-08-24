@@ -64,7 +64,7 @@ export class StyleHandler extends BaseHandler implements MyHTMLRewriterTypes.HTM
 
   private saveUrl = (fileUrl: string) => {
     const baseUrl = new URL(fileUrl);
-    if (!this.urlCache.includes(baseUrl.host) || !this.urlCache.includes(baseUrl.origin)) {
+    if (!this.urlCache.includes(baseUrl.origin)) {
       this.urlCache.push(baseUrl.origin);
     }
   };
