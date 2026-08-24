@@ -19,7 +19,7 @@
     "build_fixtures": "bun scripts/fixtures.ts",
     "clean": "bun scripts/clean.ts",
     "lint": "biome ci .",
-    "test": "bun test ./test/index.test.ts",
+    "test": "bun test ./test/index.test.ts ./test/cli-pattern.test.ts",
     "e2e": "bunx playwright test"
   },
   "devDependencies": {

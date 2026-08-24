@@ -18,6 +18,7 @@ interface ProgramOptions {
   dir?: string;
   config?: string;
   base?: string;
+  pattern?: string;
 }
 
 const helpText = `
@@ -30,6 +31,7 @@ Options:
   -d, --dir <directory>  Directory with the HTML file to process. (default: ".")
   -c, --config <file>    Path to CSP config file. (default: "csp.config.ts")
   -b, --base <path>      Base public path of your SPA. (default: "")
+  -p, --pattern <glob>   Glob pattern (relative to --dir) used to find HTML files. (default: "**/*.html")
   -h, --help             display help for command
 `;
 
@@ -77,6 +79,7 @@ const parseAgs = (): Required<ProgramOptions> => {
     base: "",
     dir: process.cwd(), // Default to current working directory
     config: join(process.cwd(), "csp.config.ts"), // Default config file path
+    pattern: "**/*.html", // Default glob pattern for finding HTML files
   };
 
   // Parse command line arguments into an array of strings
@@ -139,6 +142,17 @@ const parseAgs = (): Required<ProgramOptions> => {
         }
         break;
       }
+      case "-p":
+      case "--pattern": {
+        const patternValue = args[i + 1];
+        if (patternValue) {
+          config.pattern = patternValue.trim();
+          i++;
+        } else {
+          fatalError("Pattern argument is missing a value.");
+        }
+        break;
+      }
       case "-h":
       case "--help": {
         infoLog(helpText);
@@ -159,7 +173,7 @@ const parseAgs = (): Required<ProgramOptions> => {
   return config;
 };
 
-const { dir, base, config } = parseAgs();
+const { dir, base, config, pattern } = parseAgs();
 
 const cspConfig = await resolveConfig(config);
 
@@ -171,7 +185,7 @@ const pluginConfig: Config = {
   root: dir,
 };
 
-const glob = new Glob("**/*.html");
+const glob = new Glob(pattern);
 const htmlPaths: string[] = [];
 
 for await (const file of glob.scan({ cwd: pluginConfig.root })) {
@@ -179,7 +193,7 @@ for await (const file of glob.scan({ cwd: pluginConfig.root })) {
 }
 
 if (htmlPaths.length === 0) {
-  fatalError(`No HTML files found in ${pluginConfig.root}`);
+  fatalError(`No HTML files found in ${pluginConfig.root} matching pattern "${pattern}"`);
 }
 
 try {

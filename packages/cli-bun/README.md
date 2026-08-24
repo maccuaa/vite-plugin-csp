@@ -66,8 +66,23 @@ csp -d path/to/dist/dir --config path/to/config.ts
 
 # Base Path
 csp -d path/to/dist/dir --base myapp
+
+# Custom file pattern
+csp -d path/to/dist/dir --pattern "*.html"
 ```
 
 ## Multi-page apps
 
 `csp-bun-cli` automatically discovers and processes every `.html` file under the target directory. Point `--dir` at your build output root and all pages — including those in subdirectories — will receive their own independently-computed CSP and SRI `integrity` attributes.
+
+## Custom file patterns
+
+By default, `csp-bun-cli` recursively matches every HTML file under `--dir` using the glob pattern `**/*.html`. Use `--pattern` to narrow or widen which files get processed:
+
+```bash
+# Only top-level HTML files, skip nested pages
+csp -d path/to/dist/dir --pattern "*.html"
+
+# Match both .html and .htm files
+csp -d path/to/dist/dir --pattern "**/*.{html,htm}"
+```
