@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.1.0...csp-bun-cli-v2.2.0) (2026-08-25)
+
+
+### Features
+
+* **cli:** add --pattern flag for customizing HTML file discovery ([9ef8cf9](https://github.com/maccuaa/vite-plugin-csp/commit/9ef8cf937599db749764c497f3b729ce0dc1dbdc)), closes [#27](https://github.com/maccuaa/vite-plugin-csp/issues/27)
+
 ## [2.1.0](https://github.com/maccuaa/vite-plugin-csp/compare/csp-bun-cli-v2.0.4...csp-bun-cli-v2.1.0) (2026-08-24)
 
 
