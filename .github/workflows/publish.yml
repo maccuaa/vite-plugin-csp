@@ -3,7 +3,8 @@ name: Publish
 on:
   push:
     tags:
-      - "v*"
+      - "vite-plugin-bun-csp-v*"
+      - "csp-bun-cli-v*"
 
 permissions:
   contents: read
