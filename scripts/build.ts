@@ -11,15 +11,11 @@ for (const target of ["vite-bun", "cli-bun"]) {
 
   console.log("=== Building", target, "===");
 
-  console.info("🦺", "Typechecking files...");
-
-  await $`bunx tsc --noEmit`;
-
   console.info("💣", "Cleaning...");
 
   await $`rm -rf dist`;
 
-  console.info("🔧", "Building...");
+  console.info("🔧", "Type checking and building...");
 
   const packageJson = await Bun.file(resolve(baseDir, "package.json")).json();
   const dependencies = packageJson?.dependencies ?? {};
@@ -33,6 +29,7 @@ for (const target of ["vite-bun", "cli-bun"]) {
     outdir: distDir,
     target: "bun",
     external,
+    check: true,
     plugins: [dts({ cwd: baseDir, resolve: ["shared/types"] })],
   });
 
