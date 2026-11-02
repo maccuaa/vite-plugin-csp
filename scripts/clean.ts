@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+
 import { $, Glob } from "bun";
 
 const glob = new Glob("**/dist/");

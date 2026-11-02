@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+
 import { verifyDate, verifyTitle } from "./base.spec";
 
 test("Sample", async ({ page }) => {

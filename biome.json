@@ -6,10 +6,7 @@
     "useIgnoreFile": true
   },
   "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 120
+    "enabled": false
   },
   "linter": {
     "rules": {
@@ -17,10 +14,11 @@
     }
   },
   "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
+    "enabled": false
+  },
+  "html": {
+    "linter": {
+      "enabled": false
     }
   }
 }

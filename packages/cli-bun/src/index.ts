@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 
 import { join, resolve } from "node:path";
+
 import { Glob } from "bun";
 import { handler } from "shared/BunHandler";
 import type { Config } from "shared/internal";
@@ -12,6 +13,7 @@ import { BunFile } from "shared/BunFile";
 import { BunHash } from "shared/BunHash";
 import type { CspPluginConfiguration } from "shared/types";
 import { DEFAULT_CSP_POLICY } from "shared/utils";
+
 import { name, version } from "../package.json";
 
 interface ProgramOptions {
