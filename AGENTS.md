@@ -15,7 +15,7 @@ This is a monorepo containing packages for adding Content Security Policy (CSP) 
 ## Technology Stack
 
 - **Runtime**: Bun (version pinned by `packageManager` in the root `package.json`)
-- **Build Tool**: Vite 7.x
+- **Build Tool**: Vite 8.x
 - **Language**: TypeScript
 - **Testing**: Bun test runner + Playwright for E2E tests
 - **Linting**: Biome (lint only)
