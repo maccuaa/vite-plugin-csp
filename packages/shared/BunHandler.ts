@@ -23,7 +23,7 @@ export const handler = async ({ algorithm, config, BunHash, BunFile, policy, htm
   const paths = htmlPaths ?? [resolvePath("index.html", config)];
 
   for (const htmlPath of paths) {
-    await processHtmlFile({ htmlPath, algorithm, config, policy: { ...policy }, BunHash, BunFile });
+    await processHtmlFile({ htmlPath, algorithm, config, policy: structuredClone(policy), BunHash, BunFile });
   }
 };
 
