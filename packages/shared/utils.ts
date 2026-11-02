@@ -8,6 +8,12 @@ const GOOGLE_FONTS_URL = "fonts.gstatic.com";
 export const buildCsp = (policy: CspPolicy, handlers: Handlers): string => {
   const { inlineScriptHandler, inlineStyleHandler, scriptHandler, styleHandler } = handlers;
 
+  // A style-src or font-src created below stops falling back to default-src, so it needs 'self' to keep loading
+  // same-origin stylesheets and fonts, unless the policy denies same-origin resources by default.
+  const defaultAllowsSelf = !policy["default-src"] || policy["default-src"].includes("'self'");
+  const hadStyleSrc = !!policy["style-src"];
+  const hadFontSrc = !!policy["font-src"];
+
   // Add SRI hashes to the CSP
   addToPolicy(policy, "script-src", scriptHandler.hashValues);
   addToPolicy(policy, "script-src", inlineScriptHandler.hashValues);
@@ -23,13 +29,16 @@ export const buildCsp = (policy: CspPolicy, handlers: Handlers): string => {
 
   // Styles are handled differently than scripts. Unlike scripts, the URLs need to be explicitly allow-listed even if the SRI is in the CSP
   addToPolicy(policy, "style-src", styleHandler.urls);
-  if (inlineScriptHandler.hashValues.length) {
+  if (inlineScriptHandler.hashValues.length || (defaultAllowsSelf && !hadStyleSrc && policy["style-src"])) {
     addToPolicy(policy, "style-src", "'self'");
   }
 
   // Be nice and automatically add Google Fonts to the CSP
   if (styleHandler.urls.includes("fonts.googleapis.com")) {
     addToPolicy(policy, "font-src", GOOGLE_FONTS_URL);
+    if (defaultAllowsSelf && !hadFontSrc) {
+      addToPolicy(policy, "font-src", "'self'");
+    }
   }
 
   return Object.entries(policy)
