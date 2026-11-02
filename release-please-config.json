@@ -19,5 +19,5 @@
       "additional-paths": ["packages/shared"]
     }
   },
-  "$schema": "https://raw.githubusercontent.com/stan-stately/release-please/additional-package-paths/schemas/config.json"
+  "$schema": "https://raw.githubusercontent.com/stan-stately/release-please/ac309f0b74f5302eee2acda68808446a4491a813/schemas/config.json"
 }

@@ -16,10 +16,12 @@ jobs:
       #   with:
       #     token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      # Fork with `additional-paths` support (googleapis/release-please#2534). Pinned to a commit so that
+      # a push to the branch can't change the code that runs with RELEASE_PLEASE_TOKEN.
       - name: Create Releases
         id: github-release
         run: |
-          npx -y github:stan-stately/release-please#stan/additional-package-paths github-release \
+          npx -y github:stan-stately/release-please#ac309f0b74f5302eee2acda68808446a4491a813 github-release \
             --token ${{ secrets.RELEASE_PLEASE_TOKEN }} \
             --repo-url ${{ github.repository }} \
             --config-file release-please-config.json \
@@ -29,7 +31,7 @@ jobs:
       - name: Create Pull Requests
         id: release-pr
         run: |
-          npx -y github:stan-stately/release-please#stan/additional-package-paths release-pr \
+          npx -y github:stan-stately/release-please#ac309f0b74f5302eee2acda68808446a4491a813 release-pr \
             --token ${{ secrets.RELEASE_PLEASE_TOKEN }} \
             --repo-url ${{ github.repository }} \
             --config-file release-please-config.json \
