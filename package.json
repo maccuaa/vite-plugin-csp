@@ -16,7 +16,7 @@
     "format": "bun fmt",
     "format:check": "bun fmt --check",
     "lint": "biome ci .",
-    "test": "bun test ./test/index.test.ts ./test/cli-pattern.test.ts",
+    "test": "bun test ./test/*.test.ts",
     "e2e": "bunx playwright test"
   },
   "devDependencies": {
