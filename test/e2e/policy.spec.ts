@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+
 import { verifyTitle } from "./base.spec";
 
 test("Custom Policy", async ({ page }) => {

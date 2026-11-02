@@ -1,5 +1,7 @@
 import { readdir } from "node:fs/promises";
+
 import { defineConfig, devices } from "@playwright/test";
+
 import type { Target } from "./scripts/fixtures";
 
 let port = 3000;

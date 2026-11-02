@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
 import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
+
 import { Glob } from "bun";
+
 import type { Target } from "../scripts/fixtures";
 
 const basePath = resolve(__dirname, "./fixtures");

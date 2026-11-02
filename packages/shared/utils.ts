@@ -1,4 +1,5 @@
 import { join } from "node:path";
+
 import type { Config, Handlers } from "./internal";
 import type { CspPolicy } from "./types";
 

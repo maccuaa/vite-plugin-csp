@@ -1,4 +1,5 @@
 import { test } from "@playwright/test";
+
 import { verifyMark, verifyTitle } from "./base.spec";
 
 test("External Style", async ({ page }) => {

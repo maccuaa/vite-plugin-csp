@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+
 import { $ } from "bun";
 
 describe("csp-bun-cli error handling", () => {

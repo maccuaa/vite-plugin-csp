@@ -29,7 +29,6 @@ Add the plugin to your Vite config
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-
 import { generateCspPlugin } from "vite-plugin-bun-csp";
 
 export default defineConfig({
