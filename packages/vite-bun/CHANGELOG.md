@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.3.0](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.2.0...vite-plugin-bun-csp-v2.3.0) (2026-11-02)
+
+
+### Features
+
+* **vite-plugin-bun-csp:** support Vite 8 ([d0bf472](https://github.com/maccuaa/vite-plugin-csp/commit/d0bf4726d64405a97f1083221f7fa3613ecb026a))
+
+
+### Bug Fixes
+
+* compute each page's CSP from its own copy of the policy ([b6ae59a](https://github.com/maccuaa/vite-plugin-csp/commit/b6ae59af3da76671c08123e1ed6981060ce8f301))
+* document sha384 as the default hash algorithm ([55fc459](https://github.com/maccuaa/vite-plugin-csp/commit/55fc45928baa34a640f8217d061f506f5ff8b14f))
+* keep 'self' in the style-src and font-src the plugin creates ([a1d8922](https://github.com/maccuaa/vite-plugin-csp/commit/a1d8922c8f755eee87f7e322009bf345d16af1a2))
+* **vite-plugin-bun-csp:** ship self-contained type declarations ([a77c78d](https://github.com/maccuaa/vite-plugin-csp/commit/a77c78d9f836c45084c94a419878c6d2ffcaa52d))
+
 ## [2.2.0](https://github.com/maccuaa/vite-plugin-csp/compare/vite-plugin-bun-csp-v2.1.3...vite-plugin-bun-csp-v2.2.0) (2026-08-24)
 
 
