@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { $ } from "bun";
+import { $, Glob } from "bun";
 import { dts } from "bun-dts";
 
 const rootDir = resolve(__dirname, "..");
@@ -33,8 +33,17 @@ for (const target of ["vite-bun", "cli-bun"]) {
     outdir: distDir,
     target: "bun",
     external,
-    plugins: [dts({ resolve: ["shared/types"] })],
+    plugins: [dts({ cwd: baseDir, resolve: ["shared/types"] })],
   });
+
+  console.info("🧾", "Checking type declarations are self-contained...");
+
+  // `shared` is a private workspace package, so consumers can't resolve it. publint and attw don't catch this.
+  for await (const file of new Glob("**/*.d.ts").scan({ cwd: distDir, absolute: true })) {
+    if (/(?:from|import\()\s*["']shared\//.test(await Bun.file(file).text())) {
+      throw new Error(`${file} references the private "shared" workspace package.`);
+    }
+  }
 
   console.info("📦", "Running publint...");
 
