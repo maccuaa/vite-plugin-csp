@@ -8,9 +8,13 @@ import { DEFAULT_CSP_POLICY } from "shared/utils";
 import type { PluginOption } from "vite";
 
 /**
+ * Generates a Content Security Policy for your app at build time.
  *
- * @param options
- * @returns
+ * Calculates Subresource Integrity (SRI) hashes for the scripts and styles of every HTML page in the build output
+ * and inserts them into that page's CSP `<meta>` tag.
+ *
+ * @param options - The hash `algorithm` and CSP `policy` to use. Both are optional.
+ * @returns A Vite plugin that only runs for `vite build`.
  */
 export const generateCspPlugin = (options: CspPluginConfiguration = {}): PluginOption => {
   const { algorithm = "sha384" } = options;
