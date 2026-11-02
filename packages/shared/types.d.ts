@@ -212,7 +212,7 @@ export interface CspPluginConfiguration {
   /**
    * What hashing algorithm to use.
    *
-   * @default "sha256"
+   * @default "sha384"
    */
   algorithm?: HashAlgorithm;
 
