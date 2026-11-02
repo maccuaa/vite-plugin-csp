@@ -31,7 +31,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@tsconfig/bun": "catalog:",
-    "@types/bun": "catalog:"
+    "@tsconfig/bun": "1.0.11",
+    "@types/bun": "1.4.4"
   }
 }

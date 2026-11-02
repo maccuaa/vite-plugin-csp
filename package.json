@@ -2,17 +2,12 @@
   "name": "vite-plugin-csp-monorepo",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.4.4",
   "workspaces": {
     "packages": [
       "packages/*",
       "test/fixtures/*"
-    ],
-    "catalog": {
-      "@tsconfig/bun": "^1.0.7",
-      "@types/bun": "^1.2.4",
-      "typescript": "5.9.3",
-      "vite": "7.3.6"
-    }
+    ]
   },
   "scripts": {
     "build": "bun scripts/build.ts",
@@ -31,7 +26,6 @@
     "@tsconfig/bun": "1.0.11",
     "bun-dts": "0.1.70",
     "publint": "0.3.25",
-    "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "7.3.6"
   }
 }
