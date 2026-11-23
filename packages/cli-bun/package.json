@@ -32,6 +32,6 @@
   ],
   "devDependencies": {
     "@tsconfig/bun": "1.0.12",
-    "@types/bun": "1.4.4"
+    "@types/bun": "1.4.5"
   }
 }
